@@ -1,6 +1,7 @@
 import {
   ADD_QUIZ,
   GET_QUIZS,
+  GET_QUIZ,
   GET_ERRORS,
   QUIZ_LOADING,
   DELETE_QUIZ
@@ -9,6 +10,7 @@ import {
 
 const initialState = {
   quizzes: [],
+  quiz: {},
   loading: false
 };
 
@@ -28,8 +30,13 @@ export default function(state = initialState, action) {
     case GET_QUIZS:
       return {
         ...state,
-        // quizz: action.payload,
         quizzes: action.payload,
+        loading: false
+      };
+    case GET_QUIZ:
+      return {
+        ...state,
+        quiz: action.payload,
         loading: false
       };
     case DELETE_QUIZ:

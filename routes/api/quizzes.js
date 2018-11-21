@@ -75,7 +75,7 @@ router.get(
             .then(quizzes => {
               // Show question
               res.json(quizzes);
-              console.log("quizzes are in api:", quizzes);
+              // console.log("quizzes are in api:", quizzes);
             })
             .catch(err =>
               res.status(404).json({ noquestionsfound: "No quiz found" })
@@ -86,69 +86,69 @@ router.get(
 );
 //--------------------
 
-// // @route   GET api/questions/:id
-// // @desc    Get question by id
-// // @access  Private
-// router.get(
-//   "/:id",
-//   passport.authenticate("jwt", { session: false }),
-//   (req, res) => {
-//     Profile.findOne({ user: req.user.id }).then(profile => {
-//       Question.findById(req.params.id)
-//         .then(question => {
-//           // Check for question owner
-//           if (
-//             question.user.toString() !== req.user.id &&
-//             req.user.name.toLowerCase() !== "admin"
-//           ) {
-//             return res
-//               .status(401)
-//               .json({ notauthorized: "User not authorized" });
-//           } else {
-//             // Show question
-//             res.json(question);
-//           }
-//         })
-//         .catch(err =>
-//           res
-//             .status(404)
-//             .json({ noreportfound: "No question found with that ID" })
-//         );
-//     });
-//   }
-// );
+// @route   GET api/quizzes/:id
+// @desc    Get quizzes by id
+// @access  Private
+router.get(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Profile.findOne({ user: req.user.id }).then(profile => {
+      Quiz.findById(req.params.id)
+        .then(quiz => {
+          // Check for question owner
+          if (
+            quiz.user.toString() !== req.user.id &&
+            req.user.name.toLowerCase() !== "admin"
+          ) {
+            return res
+              .status(401)
+              .json({ notauthorized: "User not authorized" });
+          } else {
+            // Show question
+            res.json(quiz);
+          }
+        })
+        .catch(err =>
+          res
+            .status(404)
+            .json({ noreportfound: "No question found with that ID" })
+        );
+    });
+  }
+);
 
-// // @route   DELETE api/questions/:id
-// // @desc    Delete question
-// // @access  Private
-// router.delete(
-//   "/:id",
-//   passport.authenticate("jwt", { session: false }),
-//   (req, res) => {
-//     Profile.findOne({ user: req.user.id }).then(profile => {
-//       Question.findById(req.params.id)
-//         .then(question => {
-//           // Check for question owner
-//           //------------
-//           console.log("User name is:", req.user);
-//           //---------
-//           if (
-//             //question.user.toString() !== req.user.id &&
-//             req.user.name.toLowerCase() !== "admin"
-//           ) {
-//             return res
-//               .status(401)
-//               .json({ notauthorized: "User not authorized" });
-//           }
+// @route   DELETE api/quizzes/:id
+// @desc    Delete quiz
+// @access  Private
+router.delete(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Profile.findOne({ user: req.user.id }).then(profile => {
+      Quiz.findById(req.params.id)
+        .then(quiz => {
+          // Check for question owner
+          //------------
+          console.log("User name is:", req.user);
+          //---------
+          if (
+            //question.user.toString() !== req.user.id &&
+            req.user.name.toLowerCase() !== "admin"
+          ) {
+            return res
+              .status(401)
+              .json({ notauthorized: "User not authorized" });
+          }
 
-//           // Delete
-//           question.remove().then(() => res.json({ success: true }));
-//         })
-//         .catch(err =>
-//           res.status(404).json({ reportnotfound: "No question found" })
-//         );
-//     });
-//   }
-// );
+          // Delete
+          quiz.remove().then(() => res.json({ success: true }));
+        })
+        .catch(err =>
+          res.status(404).json({ reportnotfound: "No question found" })
+        );
+    });
+  }
+);
 
 module.exports = router;

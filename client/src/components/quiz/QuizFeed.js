@@ -15,30 +15,19 @@ class QuizFeed extends Component {
     console.log("user name:", auth.user.name);
     const authName = auth.user.name;
 
-    const quizSum = this.props.quizzes.map(rep => (
-      <tr key={rep._id}>
+    const quizSum = quizzes.map(quiz => (
+      <tr key={quiz._id}>
         {/* //{" "} */}
         {/* <td>
-          <Moment format="YYYY/MM/DD">{rep.fedDate}</Moment>
+          <Moment format="YYYY/MM/DD">{quiz.fedDate}</Moment>
           {" "}
         </td> */}
-        <td>{rep._id}</td>
-        <td>{rep.quizName}</td>
-
-        <td>
-          {!isEmpty(rep.reportImage) ? (
-            <img
-              className="reportImgSmall"
-              src={"../" + rep.reportImage}
-              alt="Report Image"
-            />
-          ) : (
-            <p>No Image</p>
-          )}
-        </td>
+        <td>{quiz._id}</td>
+        <td>{quiz.quizName}</td>
+        <td>{authName}</td>
         <td>
           <button
-            onClick={this.onDeleteClick.bind(this, rep._id)}
+            onClick={this.onDeleteClick.bind(this, quiz._id)}
             className="btn btn-danger"
             disabled={authName !== "admin" ? true : false}
           >
@@ -46,7 +35,7 @@ class QuizFeed extends Component {
           </button>
         </td>
         <td>
-          <Link to={`/quizzes/${rep._id}`} className="btn btn-info">
+          <Link to={`/quizzes/${quiz._id}`} className="btn btn-info">
             View Quiz
           </Link>
         </td>
@@ -61,7 +50,7 @@ class QuizFeed extends Component {
             <tr>
               <th>Quiz ID</th>
               <th>Quiz Name</th>
-              <th>Image</th>
+              <th>Instructor Name</th>
               <th />
             </tr>
             {quizSum}

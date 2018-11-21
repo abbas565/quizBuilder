@@ -20,6 +20,7 @@ export const DELETE_QUESTION = "DELETE_QUESTION";
 export const ADD_QUIZ = "ADD_QUIZ";
 export const DELETE_QUIZ = "DELETE_QUIZ";
 export const GET_QUIZS = "GET_QUIZS";
+export const GET_QUIZ = "GET_QUIZ";
 
 export const DO_QUIZ = "DO_QUIZ";
 export const GET_RESULTS = "GET_RESULTS";

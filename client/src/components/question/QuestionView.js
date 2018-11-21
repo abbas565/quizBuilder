@@ -8,8 +8,13 @@ import { getQuestion } from "../../actions/questionActions";
 
 class Question extends Component {
   componentDidMount() {
-    console.log("The question id is:", this.props.match.params.id);
-    this.props.getQuestion(this.props.match.params.id);
+    if (this.props.question01) {
+      console.log("The question id is:", this.props.question01);
+      this.props.getQuestion(this.props.question01);
+    } else {
+      console.log("The question id is:", this.props.match.params.id);
+      this.props.getQuestion(this.props.match.params.id);
+    }
   }
 
   render() {

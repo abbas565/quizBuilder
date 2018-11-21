@@ -20,7 +20,6 @@ class QuestionsView extends Component {
       questionContent = <Spinner />;
     } else {
       questionContent = <QuestionFeed questions={questions} />;
-      // questionContent = <QuizBuilder questions={questions} />;
     }
 
     return (

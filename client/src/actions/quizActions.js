@@ -5,6 +5,7 @@ import {
   DELETE_QUIZ,
   GET_QUIZS,
   GET_ERRORS,
+  GET_QUIZ,
   //CLEAR_ERRORS,
   GET_QUESTIONS,
   BUILD_QUIZ,
@@ -34,42 +35,18 @@ export const buildQuiz = newQuiz => dispatch => {
   console.log("ADD_QUIZ payload:", dispatch.payload);
 };
 
-// // Get Quiz
-// export const selectQuestion = () => dispatch => {
-//   dispatch(setQuizLoading());
-//   axios
-//     .get("/api/questions")
-//     .then(res =>
-//       dispatch({
-//         type: GET_QUESTIONS,
-//         payload: res.data
-//       })
-//     )
-//     .catch(err =>
-//       dispatch({
-//         type: GET_QUESTIONS,
-//         payload: null
-//       })
-//     );
-// };
 // Get Quizs
 export const getQuizs = () => dispatch => {
   dispatch(setQuizLoading());
   axios
     .get("/api/quizzes")
-    .then(
-      res => {
-        console.log("GET_QUIZ payload:", res.data);
-        dispatch({
-          type: GET_QUIZS,
-          payload: res.data
-        });
-      }
-      // dispatch({
-      //   type: GET_QUIZS,
-      //   payload: res.data
-      // })
-    )
+    .then(res => {
+      console.log("GET_QUIZ payload:", res.data);
+      dispatch({
+        type: GET_QUIZS,
+        payload: res.data
+      });
+    })
     .catch(err =>
       dispatch({
         type: GET_QUIZS,
@@ -79,30 +56,30 @@ export const getQuizs = () => dispatch => {
   // console.log("GET_QUIZ payload:", payload);
 };
 
-// // // Get Question
-// // export const getQuestion = id => dispatch => {
-// //   dispatch(setQuestionLoading());
-// //   console.log("get question action dispatched...");
-// //   axios
-// //     .get(`/api/questions/${id}`)
-// //     .then(res =>
-// //       dispatch({
-// //         type: GET_QUESTION,
-// //         payload: res.data
-// //       })
-// //     )
-// //     .catch(err =>
-// //       dispatch({
-// //         type: GET_QUESTION,
-// //         payload: null
-// //       })
-// //     );
-// // };
+// Get Quiz
+export const getQuiz = id => dispatch => {
+  dispatch(setQuizLoading());
+  console.log("get quiz action dispatched...");
+  axios
+    .get(`/api/quizzes/${id}`)
+    .then(res =>
+      dispatch({
+        type: GET_QUIZ,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_QUIZ,
+        payload: null
+      })
+    );
+};
 
 // Delete Quiz
 export const deleteQuiz = id => dispatch => {
   axios
-    .delete(`/api/quizs/${id}`)
+    .delete(`/api/quizzes/${id}`)
     .then(res =>
       dispatch({
         type: DELETE_QUIZ,

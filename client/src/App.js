@@ -29,6 +29,7 @@ import QuestionView from "./components/question/QuestionView";
 
 import QuizGen from "./components/quiz/QuizGen";
 import QuizsView from "./components/quiz/QuizsView";
+import QuizView from "./components/quiz/QuizView";
 import NotFound from "./components/not-found/NotFound";
 
 import "./App.css";
@@ -122,6 +123,9 @@ class App extends Component {
               </Switch>
               <Switch>
                 <PrivateRoute exact path="/quizzesview" component={QuizsView} />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/quizzes/:id" component={QuizView} />
               </Switch>
 
               <Route exact path="/not-found" component={NotFound} />

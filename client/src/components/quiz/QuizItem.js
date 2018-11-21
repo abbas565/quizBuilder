@@ -3,55 +3,94 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Moment from "react-moment";
 import isEmpty from "./../../validation/is-empty";
+import QuestionView from "../question/QuestionView";
 
 class QuizItem extends Component {
   render() {
-    const { question, auth, showActions } = this.props;
-
-    const answerCorrect = [
-      { label: "* Choose answer state", value: 0 },
-      { label: "Correct", value: "true" },
-      { label: "In Correct", value: "false" }
-    ];
+    const { quiz, auth, showActions } = this.props;
 
     return (
       <div>
-        <h4 className="mb-4">Physics Question</h4>
+        <h4 className="mb-4">Physics Quiz</h4>
 
-        <p>{this.props.question._id}</p>
-        <p>{this.props.question.mainText}</p>
+        <p>{this.props.quiz._id}</p>
+
+        {this.props.quiz.selectedQueId.map(number => (
+          <li>{number}</li>
+        ))}
         <ol>
-          <li>{this.props.question.answers.answer01.ansText}</li>
-          <li>{this.props.question.answers.answer02.ansText}</li>
-          <li>{this.props.question.answers.answer03.ansText}</li>
-          <li>{this.props.question.answers.answer04.ansText}</li>
+          {this.props.quiz.selectedQueId.map(question01 => (
+            <li key={question01}>
+              <QuestionView question01={question01} showActions={false} />
+            </li>
+          ))}
         </ol>
-        {console.log(this.props.question.questionImage)}
-        {!isEmpty(this.props.question.questionImage) ? (
-          <img
-            className="questionImgBig"
-            src={"../" + this.props.question.questionImage}
-            alt="Question Image"
-          />
-        ) : (
-          <h4>No Image</h4>
-        )}
+
+        {/* <ul>
+          {React.Children.map(this.props.quiz.selectedQueId, question01 => (
+            <li>
+              {<QuestionView question01={question01} showActions={false} />}
+            </li>
+          ))}
+        </ul> */}
+
+        {/* <ol>
+          <li>
+            {
+              <QuestionView
+                question01={this.props.quiz.selectedQueId[0]}
+                showActions={false}
+              />
+            }
+          </li>
+          <li>
+            {
+              <QuestionView
+                question01={this.props.quiz.selectedQueId[1]}
+                showActions={false}
+              />
+            }
+          </li>
+          <li>
+            {
+              <QuestionView
+                question01={this.props.quiz.selectedQueId[2]}
+                showActions={false}
+              />
+            }
+          </li>
+          <li>
+            {
+              <QuestionView
+                question01={this.props.quiz.selectedQueId[3]}
+                showActions={false}
+              />
+            }
+          </li>
+        </ol> */}
+
+        <ol>
+          {this.props.quiz.selectedQueId.forEach(question01 => {
+            console.log("question id are:", question01);
+          })}
+        </ol>
       </div>
     );
   }
 }
 
-QuestionItem.defaultProps = {
+QuizItem.defaultProps = {
   showActions: true
 };
 
-QuestionItem.propTypes = {
-  question: PropTypes.object.isRequired,
+QuizItem.propTypes = {
+  quiz: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   auth: state.auth
+  // question: state.question
 });
 
 export default connect(mapStateToProps)(QuizItem);
