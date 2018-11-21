@@ -20,9 +20,7 @@ import CreateProfile from "./components/create-profile/CreateProfile";
 import EditProfile from "./components/edit-profile/EditProfile";
 import Profiles from "./components/profiles/Profiles";
 import Profile from "./components/profile/Profile";
-import ReportsGen from "./components/reports/ReportsGen";
-import ReportsView from "./components/reports/ReportsView";
-import ReportView from "./components/report/ReportView";
+
 import QuestionsGen from "./components/questions/QuestionsGen";
 import QuestionsView from "./components/questions/QuestionsView";
 import QuestionView from "./components/question/QuestionView";
@@ -84,19 +82,7 @@ class App extends Component {
                   component={EditProfile}
                 />
               </Switch>
-              <Switch>
-                <PrivateRoute exact path="/feed" component={ReportsGen} />
-              </Switch>
-              <Switch>
-                <PrivateRoute exact path="/reports" component={ReportsView} />
-              </Switch>
-              <Switch>
-                <PrivateRoute
-                  exact
-                  path="/reports/:id"
-                  component={ReportView}
-                />
-              </Switch>
+
               <Switch>
                 <PrivateRoute
                   exact
