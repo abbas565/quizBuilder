@@ -1,7 +1,7 @@
 {
-  "name": "ducksdata",
+  "name": "quizbuilder",
   "version": "1.0.0",
-  "description": "An application for ducks fed pattern study",
+  "description": "An application for quizzes management",
   "main": "server.js",
   "scripts": {
     "client-install": "npm install --prefix client",

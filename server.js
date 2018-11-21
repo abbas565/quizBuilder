@@ -39,7 +39,7 @@ app.use("/api/quizzes", quizzes);
 // ---Access uploads folder
 app.use("/uploads", express.static("uploads"));
 
-app.get("/", (req, res) => res.send("Hello World"));
+// app.get("/", (req, res) => res.send("Hello World"));
 
 // Server static assets if in production
 if (process.env.NODE_ENV === "production") {
