@@ -13,6 +13,12 @@ const QuizSchema = new Schema({
   selectedQueId: {
     type: Array
   },
+  sQuestions: {
+    type: Array
+  },
+  quizOwner: {
+    type: String
+  },
   avatar: {
     type: String
   },

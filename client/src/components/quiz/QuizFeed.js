@@ -13,6 +13,8 @@ class QuizFeed extends Component {
   render() {
     const { quizzes, auth } = this.props;
     console.log("user name:", auth.user.name);
+    console.log("quizzes are:", quizzes);
+
     const authName = auth.user.name;
 
     const quizSum = quizzes.map(quiz => (
@@ -24,7 +26,8 @@ class QuizFeed extends Component {
         </td> */}
         <td>{quiz._id}</td>
         <td>{quiz.quizName}</td>
-        <td>{authName}</td>
+        {/* <td>{authName}</td> */}
+        <td>{quiz.quizOwner}</td>
         <td>
           <button
             onClick={this.onDeleteClick.bind(this, quiz._id)}
@@ -50,7 +53,7 @@ class QuizFeed extends Component {
             <tr>
               <th>Quiz ID</th>
               <th>Quiz Name</th>
-              <th>Instructor Name</th>
+              <th>Quiz Owner</th>
               <th />
             </tr>
             {quizSum}

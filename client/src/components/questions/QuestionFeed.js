@@ -20,7 +20,7 @@ class QuestionFeed extends Component {
         {/* <td>
           <Moment format="YYYY/MM/DD">{qus.questionDate}</Moment>
         </td> */}
-        <td>{qus.courseId}</td>
+        <td>{qus.mainText.trim().slice(0, 30) + " . . . ."}</td>
         <td>{qus.courseLevel}</td>
         <td>{qus.name}</td>
         <td>
@@ -54,12 +54,12 @@ class QuestionFeed extends Component {
 
     return (
       <div>
-        <h4 className="mb-4">Question</h4>
+        <h4 className="mb-4">Questions</h4>
         <table className="table">
           <thead>
             <tr>
               {/* <th>Date</th> */}
-              <th>Course ID</th>
+              <th>Question Text</th>
               <th>Course Level</th>
               <th>Instructor Name</th>
               <th>Image</th>

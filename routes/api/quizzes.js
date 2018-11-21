@@ -39,6 +39,8 @@ router.post(
     const newQuiz = new Quiz({
       quizName: req.body.quizName,
       selectedQueId: req.body.selectedQueId,
+      sQuestions: req.body.sQuestions,
+      quizOwner: req.body.quizOwner,
       avatar: req.body.avatar,
       //--user means insteructor----
       user: req.user.id

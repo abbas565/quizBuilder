@@ -14,6 +14,8 @@ class QuizBuilder extends Component {
       itemLables: [],
       selectedQue: [],
       selectedQueId: [],
+      sQuestions: [],
+      quizOwner: "",
       errors: {}
     };
 
@@ -27,7 +29,7 @@ class QuizBuilder extends Component {
 
     this.setState({
       itemLables: this.props.questions.map(
-        itemDetail => itemDetail.mainText.trim().slice(0, 40) + " . . . ."
+        itemDetail => itemDetail.mainText.trim().slice(0, 80) + " . . . ."
       )
     });
     console.log("itemLables is:", this.state.itemLables);
@@ -60,8 +62,9 @@ class QuizBuilder extends Component {
         (this.state.selectedQue = [...this.state.selectedQue, checkbox])
       );
       this.props.questions.forEach(que => {
-        if (que.mainText.trim().slice(0, 40) + " . . . ." == checkbox) {
+        if (que.mainText.trim().slice(0, 80) + " . . . ." == checkbox) {
           this.state.selectedQueId = [...this.state.selectedQueId, que._id];
+          this.state.sQuestions = [...this.state.sQuestions, que];
         }
       });
     }
@@ -69,12 +72,14 @@ class QuizBuilder extends Component {
     const newQuiz = {
       quizName: this.state.quizName,
       selectedQueId: this.state.selectedQueId,
-      name: user.name,
+      sQuestions: this.state.sQuestions,
+      quizOwner: user.name,
       avatar: user.avatar
     };
 
     console.log("selectedQue is:", this.state.selectedQue);
     console.log("selectedQueId is:", this.state.selectedQueId);
+    console.log("sQuestions are:", this.state.sQuestions);
     console.log("newQuiz in QuizBulder:", newQuiz);
     this.props.buildQuiz(newQuiz);
 
@@ -82,7 +87,9 @@ class QuizBuilder extends Component {
       quizName: "",
       itemLables: [],
       selectedQue: [],
-      selectedQueId: []
+      selectedQueId: [],
+      sQuestions: [],
+      quizOwner: ""
     });
   };
 
@@ -143,7 +150,3 @@ export default connect(
   mapStateToProps,
   { buildQuiz }
 )(QuizBuilder);
-
-//--------------
-
-// export default QuizBuilder;
