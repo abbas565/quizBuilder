@@ -5,6 +5,7 @@ import QuizFeed from "./QuizFeed";
 import QuizBuilder from "./QuizBuilder";
 import Spinner from "../common/Spinner";
 import { getQuestions } from "../../actions/questionActions";
+import EnhancedTable from "../common/EnhancedTable";
 
 class QuizGen extends Component {
   componentWillMount() {
@@ -21,8 +22,8 @@ class QuizGen extends Component {
       questionContent = <Spinner />;
     } else {
       console.log("questions QuizGen befor are:", questions);
-      // questionContent = <QuizFeed questions={questions} />;
-      questionContent = <QuizBuilder questions={questions} />;
+      questionContent = <EnhancedTable questions={questions} />;
+      // questionContent = <QuizBuilder questions={questions} />;
       console.log("questions QuizGen after are:", questions);
     }
 

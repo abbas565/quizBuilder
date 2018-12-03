@@ -72,7 +72,7 @@ class QuizBuilder extends Component {
     console.log("data are:", this.state.data);
     //-----------------------------------------
 
-    // console.log("itemLables is:", this.state.itemLables);
+    console.log("itemLables is:", this.state.itemLables);
     this.selectedCheckboxes = new Set();
   };
 
@@ -92,14 +92,8 @@ class QuizBuilder extends Component {
 
   handleFormSubmit = formSubmitEvent => {
     formSubmitEvent.preventDefault();
-    //-----------
-    const handleFinalStateSQ = () => {
-      console.log("handleFinalStateSQ works..........!");
-    };
-    //-----------
 
     const { user } = this.props.auth;
-    // console.log("EnhancedTable state:", this.EnhancedTable);
 
     for (const checkbox of this.selectedCheckboxes) {
       // console.log(checkbox, "is selected.");
@@ -157,7 +151,6 @@ class QuizBuilder extends Component {
   render() {
     const { errors } = this.state;
     console.log("itemLables array is:", this.state.itemLables);
-    // console.log("itemLables array is:", props.childeren);
     return (
       <div>
         <form onSubmit={this.handleFormSubmit}>
@@ -171,16 +164,12 @@ class QuizBuilder extends Component {
             info="The Quiz Name"
           />
           {this.createCheckboxes()}
-          <EnhancedTable
-            data={this.state.data}
-            handleFinalState={this.handleFinalStateSQ}
-          />
+          <EnhancedTable data={this.state.data} />
 
           <button className="btn btn-default" type="submit">
             Submit Quiz
           </button>
         </form>
-        {console.log("EnhancedTable state:", this.props.childern)};
       </div>
     );
   }
