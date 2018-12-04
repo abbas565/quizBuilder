@@ -13,7 +13,7 @@ const Quiz = require("../../models/Quiz");
 const Profile = require("../../models/Profile");
 
 // Validation
-const validateQuestionInput = require("../../validation/question");
+const validateQuizInput = require("../../validation/quiz");
 
 // @route   GET api/quizzes/test
 // @desc    Tests quizzes route
@@ -27,14 +27,14 @@ router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    // const { errors, isValid } = validateQuizzeInput(req.body);
+    const { errors, isValid } = validateQuizInput(req.body);
     console.log("quizzes req:", req.body.selectedQueId);
-    // // Check Validation
-    // if (!isValid) {
-    //   // If any errors, send 400 with errors object
-    //   console.log("errors are:", errors);
-    //   return res.status(400).json(errors);
-    // }
+    // Check Validation
+    if (!isValid) {
+      // If any errors, send 400 with errors object
+      console.log("errors are:", errors);
+      return res.status(400).json(errors);
+    }
 
     const newQuiz = new Quiz({
       quizName: req.body.quizName,
@@ -120,6 +120,7 @@ router.get(
   }
 );
 
+//----------test
 // @route   DELETE api/quizzes/:id
 // @desc    Delete quiz
 // @access  Private
@@ -152,5 +153,41 @@ router.delete(
     });
   }
 );
+//----------test
+
+// // @route   DELETE api/quizzes/:id
+// // @desc    Delete quiz
+// // @access  Private
+// router.delete(
+//   "/:id",
+//   passport.authenticate("jwt", { session: false }),
+//   (req, res) => {
+//     Profile.findOne({ user: req.user.id }).then(profile => {
+//       req.params.id.forEach(idd =>
+//         Quiz.findById(idd)
+//           .then(quiz => {
+//             // Check for question owner
+//             //------------
+//             console.log("User name is:", req.user);
+//             //---------
+//             if (
+//               //question.user.toString() !== req.user.id &&
+//               req.user.name.toLowerCase() !== "admin"
+//             ) {
+//               return res
+//                 .status(401)
+//                 .json({ notauthorized: "User not authorized" });
+//             }
+
+//             // Delete
+//             quiz.remove().then(() => res.json({ success: true }));
+//           })
+//           .catch(err =>
+//             res.status(404).json({ reportnotfound: "No question found" })
+//           )
+//       );
+//     });
+//   }
+// );
 
 module.exports = router;

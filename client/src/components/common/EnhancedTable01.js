@@ -20,8 +20,8 @@ import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from "@material-ui/icons/Delete";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import { lighten } from "@material-ui/core/styles/colorManipulator";
-import TextFieldGroup from "../common/TextFieldGroup";
-import isEmpty from "./../../validation/is-empty";
+import TextFieldGroup from "./TextFieldGroup";
+import isEmpty from "../../validation/is-empty";
 
 let counter = 0;
 function createData(
@@ -95,7 +95,7 @@ const rows = [
   }
 ];
 
-class QuizBuilderHead extends React.Component {
+class EnhancedTableHead extends React.Component {
   createSortHandler = property => event => {
     this.props.onRequestSort(event, property);
   };
@@ -149,7 +149,7 @@ class QuizBuilderHead extends React.Component {
   }
 }
 
-QuizBuilderHead.propTypes = {
+EnhancedTableHead.propTypes = {
   numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,
   onSelectAllClick: PropTypes.func.isRequired,
@@ -183,7 +183,7 @@ const toolbarStyles = theme => ({
   }
 });
 
-let QuizBuilderToolbar = props => {
+let EnhancedTableToolbar = props => {
   const { numSelected, classes } = props;
 
   return (
@@ -223,12 +223,12 @@ let QuizBuilderToolbar = props => {
   );
 };
 
-QuizBuilderToolbar.propTypes = {
+EnhancedTableToolbar.propTypes = {
   classes: PropTypes.object.isRequired,
   numSelected: PropTypes.number.isRequired
 };
 
-QuizBuilderToolbar = withStyles(toolbarStyles)(QuizBuilderToolbar);
+EnhancedTableToolbar = withStyles(toolbarStyles)(EnhancedTableToolbar);
 
 const styles = theme => ({
   root: {
@@ -243,7 +243,7 @@ const styles = theme => ({
   }
 });
 
-class QuizBuilder extends React.Component {
+class EnhancedTable01 extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -265,7 +265,7 @@ class QuizBuilder extends React.Component {
   }
 
   componentWillMount = () => {
-    //-----data for QuizBuilder--------------
+    //-----data for EnhancedTable--------------
     this.props.questions.forEach(que => {
       this.state.data = [
         ...this.state.data,
@@ -303,7 +303,7 @@ class QuizBuilder extends React.Component {
       }));
       return;
     }
-    this.setState({ selected: [], selectedQueId: [], sQuestions: [] });
+    this.setState({ selected: [], selectedQueId: [] });
   };
 
   handleClick = (event, id, questionId, que) => {
@@ -409,10 +409,10 @@ class QuizBuilder extends React.Component {
             info="The Quiz Name"
           />
           <Paper className={classes.root}>
-            <QuizBuilderToolbar numSelected={selected.length} />
+            <EnhancedTableToolbar numSelected={selected.length} />
             <div className={classes.tableWrapper}>
               <Table className={classes.table} aria-labelledby="tableTitle">
-                <QuizBuilderHead
+                <EnhancedTableHead
                   numSelected={selected.length}
                   order={order}
                   orderBy={orderBy}
@@ -490,13 +490,13 @@ class QuizBuilder extends React.Component {
             Submit Quiz
           </button>
         </form>
-        {/* // {console.log("QuizBuilder state:", this.props.childern)}; */}
+        {/* // {console.log("EnhancedTable state:", this.props.childern)}; */}
       </div>
     );
   }
 }
 
-QuizBuilder.propTypes = {
+EnhancedTable01.propTypes = {
   classes: PropTypes.object.isRequired,
   buildQuiz: PropTypes.func.isRequired,
   questions: PropTypes.array.isRequired,
@@ -512,4 +512,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { buildQuiz }
-)(withStyles(styles)(QuizBuilder));
+)(withStyles(styles)(EnhancedTable01));
