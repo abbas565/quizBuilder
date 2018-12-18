@@ -30,7 +30,10 @@ import QuizsView from "./components/quiz/QuizsView";
 import QuizView from "./components/quiz/QuizView";
 import NotFound from "./components/not-found/NotFound";
 
+import ExamGen from "./components/ExamManagement/ExamGen";
+
 import "./App.css";
+import ExamBuilder from "./components/ExamManagement/ExamBuilder";
 
 // Check for token
 if (localStorage.jwtToken) {
@@ -112,6 +115,9 @@ class App extends Component {
               </Switch>
               <Switch>
                 <PrivateRoute exact path="/quizzes/:id" component={QuizView} />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/exambuilder" component={ExamGen} />
               </Switch>
 
               <Route exact path="/not-found" component={NotFound} />

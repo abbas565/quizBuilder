@@ -3,6 +3,8 @@ import classNames from "classnames";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { buildQuiz } from "../../actions/quizActions";
+import { buildExam } from "../../actions/examActions";
+import { getProfiles } from "../../actions/profileActions";
 import { withStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -22,27 +24,18 @@ import FilterListIcon from "@material-ui/icons/FilterList";
 import { lighten } from "@material-ui/core/styles/colorManipulator";
 import TextFieldGroup from "../common/TextFieldGroup";
 import isEmpty from "./../../validation/is-empty";
+import { bindActionCreators } from "redux";
 
 let counter = 0;
-function createData(
-  questionId,
-  mainText,
-  name,
-  courseLevel,
-  courseId,
-  questionImage,
-  que
-) {
+function createData(userId, firstname, lastname, avatar, pro) {
   counter += 1;
   return {
     id: counter,
-    questionId,
-    mainText,
-    name,
-    courseLevel,
-    courseId,
-    questionImage,
-    que
+    userId,
+    firstname,
+    lastname,
+    avatar,
+    pro
   };
 }
 
@@ -74,28 +67,27 @@ function getSorting(order, orderBy) {
 
 const rows = [
   {
-    id: "mainText",
+    id: "userId",
     numeric: false,
     disablePadding: true,
-    label: "Question Text"
+    label: "Student ID"
   },
-  { id: "name", numeric: false, disablePadding: false, label: "Instructor" },
   {
-    id: "courseLevel",
+    id: "firstname",
     numeric: false,
     disablePadding: false,
-    label: "Course Level"
+    label: "First Name"
   },
-  { id: "courseId", numeric: false, disablePadding: false, label: "Course ID" },
+  { id: "lastname", numeric: false, disablePadding: false, label: "Last Name" },
   {
-    id: "questionImage",
+    id: "avatar",
     numeric: false,
     disablePadding: false,
-    label: "Question Image"
+    label: "Student Photo"
   }
 ];
 
-class QuizBuilderHead extends React.Component {
+class ExamBuilderHead extends React.Component {
   createSortHandler = property => event => {
     this.props.onRequestSort(event, property);
   };
@@ -149,7 +141,7 @@ class QuizBuilderHead extends React.Component {
   }
 }
 
-QuizBuilderHead.propTypes = {
+ExamBuilderHead.propTypes = {
   numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,
   onSelectAllClick: PropTypes.func.isRequired,
@@ -183,7 +175,7 @@ const toolbarStyles = theme => ({
   }
 });
 
-let QuizBuilderToolbar = props => {
+let ExamBuilderToolbar = props => {
   const { numSelected, classes } = props;
 
   return (
@@ -216,7 +208,7 @@ let QuizBuilderToolbar = props => {
             type="submit"
             onClick={props.submitButtonClick}
           >
-            Submit Quiz
+            Submit Exam
           </button>
         ) : (
           <Tooltip title="Filter list">
@@ -230,12 +222,12 @@ let QuizBuilderToolbar = props => {
   );
 };
 
-QuizBuilderToolbar.propTypes = {
+ExamBuilderToolbar.propTypes = {
   classes: PropTypes.object.isRequired,
   numSelected: PropTypes.number.isRequired
 };
 
-QuizBuilderToolbar = withStyles(toolbarStyles)(QuizBuilderToolbar);
+ExamBuilderToolbar = withStyles(toolbarStyles)(ExamBuilderToolbar);
 
 const styles = theme => ({
   root: {
@@ -250,20 +242,20 @@ const styles = theme => ({
   }
 });
 
-class QuizBuilder extends React.Component {
+class ExamBuilder extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       order: "asc",
       orderBy: "name",
       selected: [],
-      selectedQueId: [],
-      sQuestions: [],
+      selectedStuId: [],
+      sStudents: [],
       data: [],
       page: 0,
       rowsPerPage: 5,
-      quizName: "",
-      quizOwner: "",
+      examName: "",
+      examOwner: "",
       errors: {}
     };
 
@@ -272,22 +264,47 @@ class QuizBuilder extends React.Component {
   }
 
   componentWillMount = () => {
-    //-----data for QuizBuilder--------------
-    this.props.questions.forEach(que => {
-      this.state.data = [
-        ...this.state.data,
-        createData(
-          que._id,
-          que.mainText.trim().slice(0, 80) + " . . . .",
-          que.name,
-          que.courseLevel,
-          que.courseId,
-          que.questionImage,
-          que
-        )
-      ];
+    //-----data for ExamBuilder--------------
+    // const myprofiles = this.props.getProfiles();
+    this.props.getProfiles();
+
+    const { profiles, loading } = this.props.profile;
+    console.log("272-profiles in ExamBuilder component are:", profiles);
+    console.log("273-type of profiles is:", typeof profiles);
+
+    profiles.forEach(prof => {
+      console.log("276-prof is:", prof);
     });
-    console.log("data are:", this.state.data);
+
+    // this.props.profiles.forEach(prof => {
+    //   this.state.data = [
+    //     ...this.state.data,
+    //     createData(
+    //       prof.user._id,
+    //       prof.firstname,
+    //       prof.lastname,
+    //       prof.user.avatar,
+    //       prof
+    //     )
+    //   ];
+    // });
+
+    // profiles.forEach(prof => {
+    //   this.setState({
+    //     data: [
+    //       ...this.state.data,
+    //       createData(
+    //         prof.user._id,
+    //         prof.firstname,
+    //         prof.lastname,
+    //         prof.user.avatar,
+    //         prof
+    //       )
+    //     ]
+    //   });
+    // });
+
+    console.log("data in componentWillMount are:", this.state.data);
   };
 
   handleRequestSort = (event, property) => {
@@ -305,53 +322,53 @@ class QuizBuilder extends React.Component {
     if (event.target.checked) {
       this.setState(state => ({
         selected: state.data.map(n => n.id),
-        selectedQueId: state.data.map(n => n.questionId),
-        sQuestions: state.data.map(n => n.que)
+        selectedStuId: state.data.map(n => n.questionId),
+        sStudents: state.data.map(n => n.que)
       }));
       return;
     }
-    this.setState({ selected: [], selectedQueId: [], sQuestions: [] });
+    this.setState({ selected: [], selectedStuId: [], sStudents: [] });
   };
 
-  handleClick = (event, id, questionId, que) => {
-    console.log("que is:", que);
-    const { selected, selectedQueId, sQuestions } = this.state;
+  handleClick = (event, id, userId, pro) => {
+    console.log("pro is-Line 302:", pro);
+    const { selected, selectedStuId, sStudents } = this.state;
     const selectedIndex = selected.indexOf(id);
     let newSelected = [];
-    let newSelectedQueId = [];
-    let newSQuestions = [];
+    let newSelectedStuId = [];
+    let newSStudents = [];
 
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, id);
-      newSelectedQueId = newSelectedQueId.concat(selectedQueId, questionId);
-      newSQuestions = newSQuestions.concat(sQuestions, que);
+      newSelectedStuId = newSelectedStuId.concat(selectedStuId, userId);
+      newSStudents = newSStudents.concat(sStudents, pro);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
-      newSelectedQueId = newSelectedQueId.concat(selectedQueId.slice(1));
-      newSQuestions = newSQuestions.concat(sQuestions.slice(1));
+      newSelectedStuId = newSelectedStuId.concat(selectedStuId.slice(1));
+      newSStudents = newSStudents.concat(sStudents.slice(1));
     } else if (selectedIndex === selected.length - 1) {
       newSelected = newSelected.concat(selected.slice(0, -1));
-      newSelectedQueId = newSelectedQueId.concat(selectedQueId.slice(0, -1));
-      newSQuestions = newSQuestions.concat(sQuestions.slice(0, -1));
+      newSelectedStuId = newSelectedStuId.concat(selectedStuId.slice(0, -1));
+      newSStudents = newSStudents.concat(sStudents.slice(0, -1));
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
         selected.slice(0, selectedIndex),
         selected.slice(selectedIndex + 1)
       );
-      newSelectedQueId = newSelectedQueId.concat(
-        selectedQueId.slice(0, selectedIndex),
-        selectedQueId.slice(selectedIndex + 1)
+      newSelectedStuId = newSelectedStuId.concat(
+        selectedStuId.slice(0, selectedIndex),
+        selectedStuId.slice(selectedIndex + 1)
       );
-      newSQuestions = newSQuestions.concat(
-        sQuestions.slice(0, selectedIndex),
-        sQuestions.slice(selectedIndex + 1)
+      newSStudents = newSStudents.concat(
+        sStudents.slice(0, selectedIndex),
+        sStudents.slice(selectedIndex + 1)
       );
     }
 
     this.setState({
       selected: newSelected,
-      selectedQueId: newSelectedQueId,
-      sQuestions: newSQuestions
+      selectedStuId: newSelectedStuId,
+      sStudents: newSStudents
     });
   };
 
@@ -370,26 +387,26 @@ class QuizBuilder extends React.Component {
 
     const { user } = this.props.auth;
 
-    const newQuiz = {
-      quizName: this.state.quizName,
-      selectedQueId: this.state.selectedQueId,
-      sQuestions: this.state.sQuestions,
-      quizOwner: user.name,
+    const newExam = {
+      examName: this.state.examName,
+      selectedStuId: this.state.selectedStuId,
+      sStudents: this.state.sStudents,
+      examOwner: user.name,
       avatar: user.avatar
     };
 
     console.log("selected is:", this.state.selected);
-    console.log("selectedQueId is:", this.state.selectedQueId);
-    console.log("sQuestions are:", this.state.sQuestions);
-    console.log("newQuiz in QuizBulder:", newQuiz);
-    this.props.buildQuiz(newQuiz);
+    console.log("selectedStuId is:", this.state.selectedStuId);
+    console.log("sStudents are:", this.state.sStudents);
+    console.log("newExam in ExamBuilder:", newExam);
+    this.props.buildExam(newExam);
 
     this.setState({
-      quizName: "",
+      examName: "",
       selected: [],
-      selectedQueId: [],
-      sQuestions: [],
-      quizOwner: ""
+      selectedStuId: [],
+      sStudents: [],
+      examOwner: ""
     });
 
     // this.forceUpdate();
@@ -400,7 +417,25 @@ class QuizBuilder extends React.Component {
   }
 
   render() {
-    console.log("quiz in QuizBuilder component are:", this.props.quiz);
+    const { profiles, loading } = this.props.profile;
+    console.log("profiles in ExamBuilder component are:", profiles);
+
+    // this.props.profile.profiles.forEach(pro => {
+    //   this.state.data = [
+    //     ...this.state.data,
+    //     createData(
+    //       pro.user._id,
+    //       // pro.user.name,
+    //       pro.firstname,
+    //       pro.lastname,
+    //       pro.user.avatar,
+    //       pro
+    //     )
+    //   ];
+    // });
+
+    console.log("data in render are:", this.state.data);
+
     const { classes, errors } = this.props;
     const { data, order, orderBy, selected, rowsPerPage, page } = this.state;
     const emptyRows =
@@ -410,22 +445,22 @@ class QuizBuilder extends React.Component {
       <div>
         <form onSubmit={this.handleFormSubmit}>
           <TextFieldGroup
-            placeholder="* Enter Quiz Name Please"
-            name="quizName"
+            placeholder="* Enter Exam Name Please"
+            name="examName"
             type="text"
-            value={this.state.quizName}
+            value={this.state.examName}
             onChange={this.onChange}
-            error={errors.quizName}
-            info="The Quiz Name"
+            error={errors.examName}
+            info="The Exam Name"
           />
           <Paper className={classes.root}>
-            <QuizBuilderToolbar
+            <ExamBuilderToolbar
               numSelected={selected.length}
               submitButtonClick={this.handleFormSubmit.bind(this)}
             />
             <div className={classes.tableWrapper}>
               <Table className={classes.table} aria-labelledby="tableTitle">
-                <QuizBuilderHead
+                <ExamBuilderHead
                   numSelected={selected.length}
                   order={order}
                   orderBy={orderBy}
@@ -454,21 +489,20 @@ class QuizBuilder extends React.Component {
                             <Checkbox checked={isSelected} />
                           </TableCell>
                           <TableCell component="th" scope="row" padding="none">
-                            {n.mainText}
+                            {n.userId}
                           </TableCell>
-                          <TableCell>{n.name}</TableCell>
-                          <TableCell>{n.courseLevel}</TableCell>
-                          <TableCell>{n.courseId}</TableCell>
+                          <TableCell>{n.firstname}</TableCell>
+                          <TableCell>{n.lastname}</TableCell>
                           <TableCell>
                             {" "}
-                            {!isEmpty(n.questionImage) ? (
+                            {!isEmpty(n.avatar) ? (
                               <img
                                 className="questionImgSmall"
-                                src={"../" + n.questionImage}
-                                alt="Question Image"
+                                src={"../" + n.avatar}
+                                alt="Student Photo"
                               />
                             ) : (
-                              <p>No Image</p>
+                              <p>No Photo</p>
                             )}
                           </TableCell>
                         </TableRow>
@@ -508,10 +542,12 @@ class QuizBuilder extends React.Component {
   }
 }
 
-QuizBuilder.propTypes = {
+ExamBuilder.propTypes = {
   classes: PropTypes.object.isRequired,
-  buildQuiz: PropTypes.func.isRequired,
-  questions: PropTypes.array.isRequired,
+  buildExam: PropTypes.func.isRequired,
+  getProfiles: PropTypes.func.isRequired,
+  profiles: PropTypes.array.isRequired,
+  profile: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 };
@@ -519,10 +555,38 @@ QuizBuilder.propTypes = {
 const mapStateToProps = state => ({
   auth: state.auth,
   errors: state.errors,
-  quiz: state.quiz
+  profile: state.profile
+  // profiles: state.profiles
 });
+
+//-----First Way--------------
+// const mapDispatchToProps = {
+//   buildExam,
+//   getProfiles
+// };
+
+//----Second Way--------------
+// const mapDispatchToProps = dispatch =>
+//   bindActionCreators(
+//     {
+//       buildExam,
+//       getProfiles
+//     },
+//     dispatch
+//   );
+
+//------Third Way-----------------
+// const mapDispatchToProps = {
+//   ...buildExam,
+//   ...getProfiles
+// };
+
+// export default connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(withStyles(styles)(ExamBuilder));
 
 export default connect(
   mapStateToProps,
-  { buildQuiz }
-)(withStyles(styles)(QuizBuilder));
+  { buildExam, getProfiles }
+)(withStyles(styles)(ExamBuilder));

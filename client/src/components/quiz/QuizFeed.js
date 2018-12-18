@@ -199,12 +199,11 @@ let QuizFeedToolbar = props => {
       <div className={classes.actions}>
         {numSelected > 0 ? (
           <Tooltip title="Delete">
-            <IconButton aria-label="Delete">
-              <DeleteIcon
-                // onClick={this.onDeleteClick.bind(this, selectedQuizId)}
-                onClick={props.action}
-                disabled={authName !== "admin" ? true : false}
-              />
+            <IconButton
+              aria-label="Delete"
+              disabled={authName !== "admin" ? true : false}
+            >
+              <DeleteIcon onClick={props.deleteIconClick} />
             </IconButton>
           </Tooltip>
         ) : (
@@ -229,10 +228,6 @@ QuizFeedToolbar.propTypes = {
 
 QuizFeedToolbar = withStyles(toolbarStyles)(QuizFeedToolbar);
 
-// export default connect(
-//     { deleteQuiz }
-//   )(withStyles(styles)(QuizFeedToolbar));
-
 const styles = theme => ({
   root: {
     width: "100%",
@@ -255,10 +250,11 @@ class QuizFeed extends React.Component {
       selected: [],
       selectedQuizId: [],
       sQuizzes: [],
+      // data:this.props.quizzes,
       data: [],
       page: 0,
       rowsPerPage: 5,
-      //   quizName: "",
+      // quizName: "",
       //   quizOwner: "",
       errors: {}
     };
@@ -275,7 +271,21 @@ class QuizFeed extends React.Component {
         createData(quiz._id, quiz.quizName, quiz.quizOwner, quiz.date, quiz)
       ];
     });
-    console.log("data are:", this.state.data);
+    console.log("Line 273 data are:", this.state.data);
+  };
+
+  componentDidUpdate = prevProps => {
+    // Typical usage (don't forget to compare props):
+    if (this.props.quizzes !== prevProps.quizzes) {
+      this.setState((this.state.data = []));
+      this.props.quizzes.forEach(quiz => {
+        this.state.data = [
+          ...this.state.data,
+          createData(quiz._id, quiz.quizName, quiz.quizOwner, quiz.date, quiz)
+        ];
+      });
+      console.log("Line 293 data are:", this.state.data);
+    }
   };
 
   handleRequestSort = (event, property) => {
@@ -355,11 +365,15 @@ class QuizFeed extends React.Component {
 
   onDeleteClick = () => {
     this.state.selectedQuizId.forEach(id => this.props.deleteQuiz(id));
+    this.setState({
+      // quizName: "",
+      selected: [],
+      selectedQuizId: [],
+      sQuizzes: []
+      // quizOwner: ""
+    });
+    // this.forceUpdate();
   };
-
-  //   onChange(e) {
-  //     this.setState({ [e.target.name]: e.target.value });
-  //   }
 
   render() {
     const { classes, errors, quizzes, auth } = this.props;
@@ -379,7 +393,7 @@ class QuizFeed extends React.Component {
           numSelected={selected.length}
           selectedQuizId={this.state.selectedQuizId}
           authName={authName}
-          action={this.onDeleteClick}
+          deleteIconClick={this.onDeleteClick.bind(this)}
         />
         <div className={classes.tableWrapper}>
           <Table className={classes.table} aria-labelledby="tableTitle">
@@ -426,6 +440,11 @@ class QuizFeed extends React.Component {
                           className="btn btn-info"
                         >
                           View Quiz
+                        </Link>
+                      </TableCell>
+                      <TableCell>
+                        <Link to={`/exambuilder`} className="btn btn-primary">
+                          Build Exam
                         </Link>
                       </TableCell>
                     </TableRow>

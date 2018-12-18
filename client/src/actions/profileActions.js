@@ -71,6 +71,7 @@ export const getProfiles = () => dispatch => {
         payload: res.data
       })
     )
+    .then(res => console.log("Profile in action getProfiles are:", res.payload))
     .catch(err =>
       dispatch({
         type: GET_PROFILES,

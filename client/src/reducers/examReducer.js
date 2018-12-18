@@ -1,48 +1,48 @@
 import {
-  ADD_QUIZ,
-  GET_QUIZS,
-  GET_QUIZ,
+  ADD_EXAM,
+  GET_EXAMS,
+  GET_EXAM,
   GET_ERRORS,
-  QUIZ_LOADING,
-  DELETE_QUIZ
+  EXAM_LOADING,
+  DELETE_EXAM
   //CLEAR_ERRORS,
 } from "../actions/types";
 
 const initialState = {
-  quizzes: [],
-  quiz: {},
+  exams: [],
+  exam: {},
   loading: false
 };
 
 export default function(state = initialState, action) {
-  console.log("action payload in quizReducer:", action.payload);
+  console.log("action payload in examReducer:", action.payload);
   switch (action.type) {
-    case QUIZ_LOADING:
+    case EXAM_LOADING:
       return {
         ...state,
         loading: true
       };
-    case ADD_QUIZ:
+    case ADD_EXAM:
       return {
         ...state,
-        quizzes: [action.payload, ...state.quizzes]
+        exams: [action.payload, ...state.exams]
       };
-    case GET_QUIZS:
+    case GET_EXAMS:
       return {
         ...state,
-        quizzes: action.payload,
+        exams: action.payload,
         loading: false
       };
-    case GET_QUIZ:
+    case GET_EXAM:
       return {
         ...state,
-        quiz: action.payload,
+        exam: action.payload,
         loading: false
       };
-    case DELETE_QUIZ:
+    case DELETE_EXAM:
       return {
         ...state,
-        quizzes: state.quizzes.filter(quiz => quiz._id !== action.payload)
+        exams: state.exams.filter(exam => exam._id !== action.payload)
       };
     default:
       return state;

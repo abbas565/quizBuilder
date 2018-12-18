@@ -13,6 +13,7 @@ class Profiles extends Component {
   render() {
     const { profiles, loading } = this.props.profile;
     let profileItems;
+    console.log("profile in profile component is:", this.props.profile);
 
     if (profiles === null || loading) {
       profileItems = <Spinner />;
