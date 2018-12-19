@@ -443,7 +443,13 @@ class QuizFeed extends React.Component {
                         </Link>
                       </TableCell>
                       <TableCell>
-                        <Link to={`/exambuilder`} className="btn btn-primary">
+                        <Link
+                          to={{
+                            pathname: `/exambuilder`,
+                            quizId: `${n.quizId}`
+                          }}
+                          className="btn btn-primary"
+                        >
                           Build Exam
                         </Link>
                       </TableCell>

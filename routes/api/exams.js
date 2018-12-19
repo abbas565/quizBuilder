@@ -7,8 +7,7 @@ const isEmpty = require("../../validation/is-empty");
 
 // Exam model
 const Exam = require("../../models/Exam");
-// Quiz model
-const Quiz = require("../../models/Quiz");
+
 // Profile model
 const Profile = require("../../models/Profile");
 
@@ -38,6 +37,8 @@ router.post(
 
     const newExam = new Exam({
       examName: req.body.examName,
+      startTime: req.body.startTime,
+      finishTime: req.body.finishTime,
       selectedStuId: req.body.selectedStuId,
       sStudents: req.body.sStudents,
       examOwner: req.body.examOwner,

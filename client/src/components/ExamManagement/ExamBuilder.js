@@ -25,6 +25,7 @@ import { lighten } from "@material-ui/core/styles/colorManipulator";
 import TextFieldGroup from "../common/TextFieldGroup";
 import isEmpty from "./../../validation/is-empty";
 import { bindActionCreators } from "redux";
+import DateAndTimePickers from "../common/DateAndTimePickers";
 
 let counter = 0;
 function createData(userId, firstname, lastname, avatar, pro) {
@@ -256,6 +257,8 @@ class ExamBuilder extends React.Component {
       rowsPerPage: 5,
       examName: "",
       examOwner: "",
+      startTime: "",
+      finishTime: "",
       errors: {}
     };
 
@@ -396,7 +399,9 @@ class ExamBuilder extends React.Component {
       selectedStuId: this.state.selectedStuId,
       sStudents: this.state.sStudents,
       examOwner: user.name,
-      avatar: user.avatar
+      avatar: user.avatar,
+      startTime: this.state.startTime,
+      finishTime: this.state.finishTime
     };
 
     console.log("selected is:", this.state.selected);
@@ -458,6 +463,65 @@ class ExamBuilder extends React.Component {
             error={errors.examName}
             info="The Exam Name"
           />
+
+          <TextFieldGroup
+            placeholder="* Enter Start Time"
+            name="startTime"
+            type="date"
+            value={this.state.startTime}
+            onChange={this.onChange}
+            error={errors.startTime}
+            info="The Start Time"
+          />
+          <TextFieldGroup
+            placeholder="* Enter finish Time"
+            name="finishTime"
+            type="date"
+            value={this.state.finishTime}
+            onChange={this.onChange}
+            error={errors.finishTime}
+            info="The Finish Time"
+          />
+
+          {/* <DateAndTimePickers
+            id="datetime-local"
+            label="Exam Start Time"
+            type="datetime-local"
+            defaultValue="2017-05-24T10:30"
+            value={this.state.startTime}
+            onChange={this.onChange}
+            className={classes.textField}
+            InputLabelProps={{
+              shrink: true
+            }}
+          />
+          <br />
+          <DateAndTimePickers
+            id="datetime-local"
+            label="Exam Finish Time"
+            value={this.state.finishTime}
+            onChange={this.onChange}
+            type="datetime-local"
+            defaultValue="2017-05-24T10:30"
+            className={classes.textField}
+            InputLabelProps={{
+              shrink: true
+            }}
+          /> */}
+
+          {/* <DateAndTimePickers
+            label="Exam Start Time"
+            value={this.state.startTime}
+            onChange={this.onChange}
+            // defaultValue={this.state.startTime}
+          />
+          <br />
+          <DateAndTimePickers
+            label="Exam Finish Time"
+            value={this.state.finishTime}
+            onChange={this.onChange}
+            // defaultValue={this.state.finishTime}
+          /> */}
           <Paper className={classes.root}>
             <ExamBuilderToolbar
               numSelected={selected.length}

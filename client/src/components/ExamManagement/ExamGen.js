@@ -4,10 +4,20 @@ import { connect } from "react-redux";
 import ExamBuilder from "./ExamBuilder";
 import Spinner from "../common/Spinner";
 import { getProfiles } from "../../actions/profileActions";
+import { getQuiz } from "../../actions/quizActions";
 
 class ExamGen extends Component {
   componentWillMount() {
     this.props.getProfiles();
+    console.log("The quiz id in examGen is:", this.props);
+    let qExam;
+    this.props.quiz.quizzes.forEach(q => {
+      if (q._id === this.props.location.quizId) {
+        qExam = q;
+        console.log("qExam is", qExam);
+      }
+    });
+    // this.props.getQuiz(this.props.match.params.id);
   }
 
   render() {
@@ -39,14 +49,18 @@ class ExamGen extends Component {
 
 ExamGen.propTypes = {
   getProfiles: PropTypes.func.isRequired,
+  getQuiz: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  profile: state.profile
+  profile: state.profile,
+  quiz: state.quiz
 });
+
+const mapDispatchToProps = { getProfiles };
 
 export default connect(
   mapStateToProps,
-  { getProfiles }
+  mapDispatchToProps
 )(ExamGen);

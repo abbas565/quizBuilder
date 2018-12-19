@@ -7,9 +7,18 @@ const ExamSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "users"
   },
-  ExamName: {
+  examName: {
     type: String
   },
+  startTime: {
+    type: String
+  },
+  finishTime: {
+    type: String
+  },
+  // quiz: {
+  //   type: object
+  // },
   selectedStuId: {
     type: Array
   },

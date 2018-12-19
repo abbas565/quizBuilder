@@ -21,13 +21,13 @@ export const buildExam = newExam => dispatch => {
         payload: res.data
       })
     )
+    .then(console.log("ADD_EXAM payload:", dispatch.payload))
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
       })
     );
-  console.log("ADD_EXAM payload:", dispatch.payload);
 };
 
 // Get Exams
