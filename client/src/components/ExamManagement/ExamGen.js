@@ -10,13 +10,13 @@ class ExamGen extends Component {
   componentWillMount() {
     this.props.getProfiles();
     console.log("The quiz id in examGen is:", this.props);
-    let qExam;
-    this.props.quiz.quizzes.forEach(q => {
-      if (q._id === this.props.location.quizId) {
-        qExam = q;
-        console.log("qExam is", qExam);
-      }
-    });
+    // let qExam;
+    // this.props.quiz.quizzes.forEach(q => {
+    //   if (q._id === this.props.location.quizId) {
+    //     qExam = q;
+    //     console.log("qExam is", qExam);
+    //   }
+    // });
     // this.props.getQuiz(this.props.match.params.id);
   }
 
@@ -30,9 +30,18 @@ class ExamGen extends Component {
       profileContent = <Spinner />;
     } else {
       console.log("profiles ExamGen befor are:", profiles);
-      // profileContent = <EnhancedTable01 profiles={profiles} />;
-      profileContent = <ExamBuilder profiles={profiles} />;
+      //-----Passing selected quiz to ExamBuilder------------
+      let qExam;
+      this.props.quiz.quizzes.forEach(q => {
+        if (q._id === this.props.location.quizId) {
+          qExam = q;
+          console.log("qExam is", qExam);
+        }
+      });
+      //------------------------------------------------------
+      profileContent = <ExamBuilder profiles={profiles} qExam={qExam} />;
       console.log("profiles ExamGen after are:", profiles);
+      console.log("Line 36-qExam is:", qExam);
     }
 
     return (
@@ -49,7 +58,7 @@ class ExamGen extends Component {
 
 ExamGen.propTypes = {
   getProfiles: PropTypes.func.isRequired,
-  getQuiz: PropTypes.func.isRequired,
+  // getQuiz: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired
 };
 

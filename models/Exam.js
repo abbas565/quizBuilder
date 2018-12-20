@@ -16,9 +16,9 @@ const ExamSchema = new Schema({
   finishTime: {
     type: String
   },
-  // quiz: {
-  //   type: object
-  // },
+  qExam: {
+    type: Object
+  },
   selectedStuId: {
     type: Array
   },

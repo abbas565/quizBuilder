@@ -31,6 +31,9 @@ import QuizView from "./components/quiz/QuizView";
 import NotFound from "./components/not-found/NotFound";
 
 import ExamGen from "./components/ExamManagement/ExamGen";
+import ExamsView from "./components/ExamManagement/ExamsView";
+import ExamView from "./components/ExamManagement/ExamView";
+import ExamRun from "./components/ExamManagement/ExamRun";
 
 import "./App.css";
 import ExamBuilder from "./components/ExamManagement/ExamBuilder";
@@ -118,6 +121,15 @@ class App extends Component {
               </Switch>
               <Switch>
                 <PrivateRoute exact path="/exambuilder" component={ExamGen} />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/examsview" component={ExamsView} />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/exams/:id" component={ExamView} />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/examrun" component={ExamRun} />
               </Switch>
 
               <Route exact path="/not-found" component={NotFound} />

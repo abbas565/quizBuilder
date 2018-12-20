@@ -325,8 +325,8 @@ class ExamBuilder extends React.Component {
     if (event.target.checked) {
       this.setState(state => ({
         selected: state.data.map(n => n.id),
-        selectedStuId: state.data.map(n => n.questionId),
-        sStudents: state.data.map(n => n.que)
+        selectedStuId: state.data.map(n => n.userId),
+        sStudents: state.data.map(n => n.pro)
       }));
       return;
     }
@@ -401,7 +401,8 @@ class ExamBuilder extends React.Component {
       examOwner: user.name,
       avatar: user.avatar,
       startTime: this.state.startTime,
-      finishTime: this.state.finishTime
+      finishTime: this.state.finishTime,
+      qExam: this.props.qExam
     };
 
     console.log("selected is:", this.state.selected);
@@ -415,7 +416,9 @@ class ExamBuilder extends React.Component {
       selected: [],
       selectedStuId: [],
       sStudents: [],
-      examOwner: ""
+      examOwner: "",
+      startTime: "",
+      finishTime: ""
     });
 
     // this.forceUpdate();
@@ -429,6 +432,7 @@ class ExamBuilder extends React.Component {
     const { profiles, loading } = this.props.profiles;
     console.log("profiles in ExamBuilder component are:", profiles);
     console.log("exam in ExamBuilder component are:", this.props.exam);
+    console.log("qExam in ExamBuilder is:", this.props.qExam);
 
     // this.props.profile.profiles.forEach(pro => {
     //   this.state.data = [
@@ -453,6 +457,7 @@ class ExamBuilder extends React.Component {
 
     return (
       <div>
+        <h1>{this.props.qExam.quizName}</h1>
         <form onSubmit={this.handleFormSubmit}>
           <TextFieldGroup
             placeholder="* Enter Exam Name Please"

@@ -43,6 +43,7 @@ router.post(
       sStudents: req.body.sStudents,
       examOwner: req.body.examOwner,
       avatar: req.body.avatar,
+      qExam: req.body.qExam,
       //--user means insteructor----
       user: req.user.id
     });
@@ -51,109 +52,110 @@ router.post(
   }
 );
 
-// // @route   GET api/exams
-// // @desc    Get exams by user
-// // @access  Private
-// router.get(
-//   "/",
-//   passport.authenticate("jwt", { session: false }),
-//   (req, res) => {
-//     console.log("Exam view works....!"),
-//       Profile.findOne({ user: req.user.id }).then(profile => {
-//         if (req.user.name.toLowerCase() !== "admin") {
-//           Exam.find({ user: req.user.id })
-//             .sort({ date: -1 })
-//             .then(exams => {
-//               res.json(exams);
-//               console.log("exams are in api:", exams);
-//             })
-//             .catch(err =>
-//               res
-//                 .status(404)
-//                 .json({ noquestionfound: "No exam found for this user" })
-//             );
-//         } else {
-//           Quiz.find()
-//             .sort({ date: -1 })
-//             .then(exams => {
-//               // Show exam
-//               res.json(exams);
-//               // console.log("exams are in api:", exams);
-//             })
-//             .catch(err =>
-//               res.status(404).json({ noquestionsfound: "No exam found" })
-//             );
-//         }
-//       });
-//   }
-// );
-// //--------------------
+// @route   GET api/exams
+// @desc    Get exams by user
+// @access  Private
+router.get(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    console.log("Exam view works....!"),
+      Profile.findOne({ user: req.user.id }).then(profile => {
+        if (req.user.name.toLowerCase() !== "admin") {
+          Exam.find({
+            $or: [{ user: req.user.id }, { "sStudents.user._id": req.user.id }]
+          })
+            .sort({ date: -1 })
+            .then(exams => {
+              res.json(exams);
+              console.log("Line 81-exams are in api:", exams);
+              console.log("req.user.id:", req.user.id);
+            })
+            .catch(err =>
+              res
+                .status(404)
+                .json({ noquestionfound: "No exam found for this user" })
+            );
+        } else {
+          Exam.find()
+            .sort({ date: -1 })
+            .then(exams => {
+              // Show exam
+              res.json(exams);
+              // console.log("exams are in api:", exams);
+            })
+            .catch(err =>
+              res.status(404).json({ noquestionsfound: "No exam found" })
+            );
+        }
+      });
+  }
+);
+//--------------------
 
-// // @route   GET api/quizzes/:id
-// // @desc    Get quizzes by id
-// // @access  Private
-// router.get(
-//   "/:id",
-//   passport.authenticate("jwt", { session: false }),
-//   (req, res) => {
-//     Profile.findOne({ user: req.user.id }).then(profile => {
-//       Quiz.findById(req.params.id)
-//         .then(quiz => {
-//           // Check for question owner
-//           if (
-//             quiz.user.toString() !== req.user.id &&
-//             req.user.name.toLowerCase() !== "admin"
-//           ) {
-//             return res
-//               .status(401)
-//               .json({ notauthorized: "User not authorized" });
-//           } else {
-//             // Show question
-//             res.json(quiz);
-//           }
-//         })
-//         .catch(err =>
-//           res
-//             .status(404)
-//             .json({ noreportfound: "No question found with that ID" })
-//         );
-//     });
-//   }
-// );
+// @route   GET api/exams/:id
+// @desc    Get exams by user id
+// @access  Private
+router.get(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Profile.findOne({ user: req.user.id }).then(profile => {
+      Exam.findById(req.params.id)
+        .then(exam => {
+          // Check for exam owner
+          if (
+            exam.user.toString() !== req.user.id &&
+            req.user.name.toLowerCase() !== "admin" &&
+            exam.selectedStuId.indexOf(req.user.id) == -1
+          ) {
+            return res
+              .status(401)
+              .json({ notauthorized: "User not authorized" });
+          } else {
+            // Show exam
+            res.json(exam);
+          }
+        })
+        .catch(err =>
+          res.status(404).json({ noreportfound: "No exam found with that ID" })
+        );
+    });
+  }
+);
 
-// //----------test
-// // @route   DELETE api/quizzes/:id
-// // @desc    Delete quiz
-// // @access  Private
-// router.delete(
-//   "/:id",
-//   passport.authenticate("jwt", { session: false }),
-//   (req, res) => {
-//     Profile.findOne({ user: req.user.id }).then(profile => {
-//       Quiz.findById(req.params.id)
-//         .then(quiz => {
-//           // Check for question owner
-//           //------------
-//           console.log("User name is:", req.user);
-//           //---------
-//           if (
-//             //question.user.toString() !== req.user.id &&
-//             req.user.name.toLowerCase() !== "admin"
-//           ) {
-//             return res
-//               .status(401)
-//               .json({ notauthorized: "User not authorized" });
-//           }
+// @route   DELETE api/exams/:id
+// @desc    Delete exam
+// @access  Private
+router.delete(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Profile.findOne({ user: req.user.id }).then(profile => {
+      Exam.findById(req.params.id)
+        .then(exam => {
+          // Check for question owner
+          //------------
+          console.log("User name is:", req.user);
+          //---------
+          if (
+            //question.user.toString() !== req.user.id &&
+            req.user.name.toLowerCase() !== "admin"
+          ) {
+            return res
+              .status(401)
+              .json({ notauthorized: "User not authorized" });
+          }
 
-//           // Delete
-//           quiz.remove().then(() => res.json({ success: true }));
-//         })
-//         .catch(err =>
-//           res.status(404).json({ reportnotfound: "No question found" })
-//         );
-//     });
-//   }
-// );
+          // Delete
+          exam.remove().then(() => res.json({ success: true }));
+        })
+        .catch(err =>
+          res.status(404).json({ reportnotfound: "No question found" })
+        );
+    });
+  }
+);
 //----------test
 
 // // @route   DELETE api/quizzes/:id

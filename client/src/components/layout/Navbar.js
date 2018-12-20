@@ -37,9 +37,14 @@ class Navbar extends Component {
             View Quizzes
           </Link>
         </li>
-        <li className="nav-item">
+        {/* <li className="nav-item">
           <Link className="nav-link" to="/exambuilder">
             Exam Builder
+          </Link>
+        </li> */}
+        <li className="nav-item">
+          <Link className="nav-link" to="/examsview">
+            Exams View
           </Link>
         </li>
         <li className="nav-item">
