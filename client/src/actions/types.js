@@ -30,6 +30,11 @@ export const GET_EXAM = "GET_EXAM";
 export const EXAM_LOADING = "EXAM_LOADING";
 export const DELETE_EXAM = "DELETE_EXAM";
 
+export const ADD_RESULT = "ADD_RESULT";
+export const ADD_EXAM_RESULT = "ADD_EXAM_RESULT";
+
+export const RESULT_LOADING = "RESULT_LOADING";
+
 // export const DO_QUIZ = "DO_QUIZ";
 // export const GET_RESULTS = "GET_RESULTS";
 // export const GET_RESULT = "GET_RESULT";

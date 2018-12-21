@@ -5,6 +5,7 @@ import profileReducer from "./profileReducer";
 import questionReducer from "./questionReducer";
 import quizReducer from "./quizReducer";
 import examReducer from "./examReducer";
+import resultReducer from "./resultReducer";
 
 export default combineReducers({
   auth: authReducer,
@@ -12,5 +13,6 @@ export default combineReducers({
   profile: profileReducer,
   question: questionReducer,
   quiz: quizReducer,
-  exam: examReducer
+  exam: examReducer,
+  result: resultReducer
 });

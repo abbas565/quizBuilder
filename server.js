@@ -9,6 +9,7 @@ const profile = require("./routes/api/profile");
 const questions = require("./routes/api/questions");
 const quizzes = require("./routes/api/quizzes");
 const exams = require("./routes/api/exams");
+const results = require("./routes/api/results");
 
 const app = express();
 
@@ -37,6 +38,7 @@ app.use("/api/profile", profile);
 app.use("/api/questions", questions);
 app.use("/api/quizzes", quizzes);
 app.use("/api/exams", exams);
+app.use("/api/results", results);
 
 // ---Access uploads folder
 app.use("/uploads", express.static("uploads"));
