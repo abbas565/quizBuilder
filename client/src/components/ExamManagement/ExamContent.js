@@ -23,11 +23,12 @@ class ExamContent extends Component {
     formSubmitEvent.preventDefault();
 
     const { user } = this.props.auth;
-    const { selectedExam } = this.props;
+    const { selectedExam, examRunId } = this.props;
 
     const newExamId = {
       examId: selectedExam._id,
-      studentId: user.id
+      studentId: user.id,
+      examRunId: examRunId
     };
     console.log("formsubmit in ExamContent is working!");
     // console.log("selected is:", this.state.selected);
@@ -48,7 +49,13 @@ class ExamContent extends Component {
   };
 
   render() {
-    const { selectedExam, selectedAnswer, auth, showActions } = this.props;
+    const {
+      selectedExam,
+      selectedAnswer,
+      auth,
+      examRunId,
+      showActions
+    } = this.props;
     console.log("selectedExam in ExamRun is", selectedExam);
     console.log("ExamContent props are:", this.props);
     console.log("selectedAnswer in ExamRun is:", selectedAnswer);
@@ -68,6 +75,7 @@ class ExamContent extends Component {
         questionId={sQ._id}
         examId={selectedExam._id}
         studentId={auth.user.id}
+        examRunId={examRunId}
       />
     ));
 

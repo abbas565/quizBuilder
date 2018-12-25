@@ -10,8 +10,14 @@ const ExamResultSchema = new Schema({
   examId: {
     type: String
   },
+  examRunId: {
+    type: String
+  },
   studentId: {
     type: String
+  },
+  results: {
+    type: Array
   },
   user: {
     type: String

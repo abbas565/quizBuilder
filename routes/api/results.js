@@ -8,6 +8,7 @@ const isEmpty = require("../../validation/is-empty");
 // Result model
 const Result = require("../../models/Result");
 const ExamResult = require("../../models/ExamResult");
+const Exam = require("../../models/Exam");
 
 // Profile model
 const Profile = require("../../models/Profile");
@@ -40,6 +41,7 @@ router.post(
     const newQuestionAnswer = new Result({
       questionId: req.body.questionId,
       examId: req.body.examId,
+      examRunId: req.body.examRunId,
       studentId: req.body.studentId,
       selectedAnswers: req.body.selectedAnswers,
 
@@ -66,17 +68,124 @@ router.post(
       console.log("errors are:", errors);
       return res.status(400).json(errors);
     }
-
-    const newExamResult = new ExamResult({
-      examId: req.body.examId,
+    //------------find exam result
+    Result.find({
       studentId: req.body.studentId,
-      //--user means insteructor----
-      user: req.user.id
-    });
-    console.log("newExamResult is:", newExamResult);
-    newExamResult.save().then(examresult => res.json(examresult));
+      examId: req.body.examId,
+      examRunId: req.body.examRunId
+    })
+      .sort({ date: -1 })
+      .then(results => {
+        //  res.json(results);
+
+        console.log("Line 81-results are in api:", results);
+        // console.log("Line 100-results are in api-json:", res.json(results));
+        console.log("Line 83-req.user.id:", req.user.id);
+        //----finding correct answers start--------
+        Exam.findById(req.body.examId)
+          .then(exam => {
+            exam.qExam.sQuestions
+              .forEach(
+                que =>
+                  //  {
+                  //   if (
+                  //     results.selectedAnswers.indexOf(
+                  //       que.answers.answer01.ansText
+                  //     ) !== -1 &&
+                  //     que.answers.answer01.ansCorrect == true
+                  //   ) {
+                  //     console.log(
+                  //       "answer01 is:",
+                  //       que.answers.answer01.ansCorrect
+                  //     );
+                  //   } else {
+                  //     console.log("Answer01 is Incorrect Answer");
+                  //   }
+                  // }
+                  console.log("Line 87--exam.qExam.sQuestions", que.answers)
+                //   results.selectedAnswers.indexOf(
+                //     que.answers.answer01.ansText
+                //   ) !== -1 && que.answers.answer01.ansCorrect == true
+                //     ? console.log("answer01 is:", que.answers.answer01.ansCorrect)
+                //     : console.log("Answer01 is Incorrect Answer")
+              )
+              .catch(err =>
+                //  console.log("Line 100 error is:", err)
+                res
+                  .status(404)
+                  .json({ noresultfound: "No result found for this user" })
+              );
+            // //----finding correct answers finish-------
+
+            const newExamResult = new ExamResult({
+              examId: req.body.examId,
+              examRunId: req.body.examRunId,
+              studentId: req.body.studentId,
+              results: results,
+              //--user means insteructor----
+              user: req.user.id
+            });
+            console.log("newExamResult is:", newExamResult);
+            newExamResult.save().then(examresult => res.json(examresult));
+          })
+          .catch(err =>
+            res
+              .status(404)
+              .json({ noresultfound: "No result found for this user" })
+          );
+        //------------
+      })
+      .catch(err =>
+        res.status(404).json({ noresultfound: "No result found for this user" })
+      );
   }
 );
+
+module.exports = router;
+
+// // @route   GET api/results
+// // @desc    Get results by studentId and examId
+// // @access  Private
+// router.get(
+//   "/",
+//   passport.authenticate("jwt", { session: false }),
+//   (req, res) => {
+//     console.log("Result view works....!"),
+//       Profile.findOne({ user: req.user.id }).then(profile => {
+//         if (req.user.name.toLowerCase() !== "admin") {
+//           // Result.find({
+//           //   $or: [{ user: req.user.id }, { "sStudents.user._id": req.user.id }]
+//           // })
+//           Result.find({
+//              studentId: req.body.studentId ,  examId: req.body.examId
+//           })
+//             .sort({ date: -1 })
+//             .then(results => {
+//               res.json(results);
+//               console.log("Line 100-results are in api:", results);
+//               console.log("req.user.id:", req.user.id);
+//             })
+//             .catch(err =>
+//               res
+//                 .status(404)
+//                 .json({ noresultfound: "No result found for this user" })
+//             );
+//         } else {
+//           Result.find()
+//             .sort({ date: -1 })
+//             .then(results => {
+//               // Show exam
+//               res.json(results);
+//               // console.log("results are in api:", results);
+//             })
+//             .catch(err =>
+//               res.status(404).json({ noresultsfound: "No result found" })
+//             );
+//         }
+//       });
+//   }
+// );
+// //--------------------
 
 // // @route   GET api/exams
 // // @desc    Get exams by user
@@ -217,6 +326,4 @@ router.post(
 // //       );
 // //     });
 // //   }
-// // );
-
-module.exports = router;
+// // )

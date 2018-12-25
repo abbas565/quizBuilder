@@ -51,11 +51,12 @@ class CheckboxList extends React.Component {
     formSubmitEvent.preventDefault();
 
     const { user } = this.props.auth;
-    const { examId, studentId, questionId } = this.props;
+    const { examId, studentId, questionId, examRunId } = this.props;
 
     const newQuestionAnswer = {
       questionId: questionId,
       examId: examId,
+      examRunId: examRunId,
       studentId: studentId,
       selectedAnswers: this.state.checked
     };
@@ -122,6 +123,7 @@ CheckboxList.propTypes = {
   // key: PropTypes.string.isRequired,
   questionId: PropTypes.string.isRequired,
   examId: PropTypes.string.isRequired,
+  examRunId: PropTypes.string.isRequired,
   studentId: PropTypes.string.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired

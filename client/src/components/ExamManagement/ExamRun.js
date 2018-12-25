@@ -6,6 +6,7 @@ import isEmpty from "./../../validation/is-empty";
 import QuestionView from "../question/QuestionView";
 import CheckBoxList from "../common/CheckBoxList";
 import ExamContent from "./ExamContent";
+import uuid from "uuid/v1";
 
 class ExamRun extends Component {
   render() {
@@ -15,6 +16,7 @@ class ExamRun extends Component {
     console.log("Exam ID is:", this.props.location.examId);
     let sExam;
     let sAnswers;
+    let examRunId;
     exam.exams.forEach(pexam => {
       if (pexam._id == this.props.location.examId) {
         console.log("Selected exam is", pexam);
@@ -24,13 +26,18 @@ class ExamRun extends Component {
         );
         sExam = pexam;
         sAnswers = pexam.qExam.sQuestions.map(ques => ques.answers);
+        examRunId = uuid();
       }
     });
     console.log("sExam in ExamRun is", sExam);
     console.log("sAnswers in ExamRun are", sAnswers);
     let quizContent;
     quizContent = (
-      <ExamContent selectedExam={sExam} selectedAnswer={sAnswers} />
+      <ExamContent
+        selectedExam={sExam}
+        selectedAnswer={sAnswers}
+        examRunId={examRunId}
+      />
     );
 
     return (
