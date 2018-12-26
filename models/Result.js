@@ -22,6 +22,24 @@ const ResultSchema = new Schema({
   selectedAnswers: {
     type: Array
   },
+  answerSelectPass: {
+    answer01pass: {
+      type: Number
+      // required: true
+    },
+    answer02pass: {
+      type: Number
+      // required: true
+    },
+    answer03pass: {
+      type: Number
+      // required: true
+    },
+    answer04pass: {
+      type: Number
+      // required: true
+    }
+  },
   user: {
     type: String
   },

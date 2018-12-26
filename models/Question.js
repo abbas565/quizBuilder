@@ -24,6 +24,9 @@ const QuestionSchema = new Schema({
       ansCorrect: {
         type: Boolean
         // required: true
+      },
+      point: {
+        type: Number
       }
     },
     answer02: {
@@ -34,6 +37,9 @@ const QuestionSchema = new Schema({
       ansCorrect: {
         type: Boolean
         // required: true
+      },
+      point: {
+        type: Number
       }
     },
     answer03: {
@@ -44,6 +50,9 @@ const QuestionSchema = new Schema({
       ansCorrect: {
         type: Boolean
         // required: true
+      },
+      point: {
+        type: Number
       }
     },
     answer04: {
@@ -54,6 +63,9 @@ const QuestionSchema = new Schema({
       ansCorrect: {
         type: Boolean
         // required: true
+      },
+      point: {
+        type: Number
       }
     }
   },

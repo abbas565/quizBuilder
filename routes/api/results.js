@@ -74,48 +74,152 @@ router.post(
       examId: req.body.examId,
       examRunId: req.body.examRunId
     })
-      .sort({ date: -1 })
+      // .sort({ date: -1 })
+      .sort({ questionId: -1 })
       .then(results => {
+        //-----remove old saved answerd in each exam start-------
+        for (let i = 0; i < results.length; i++) {
+          console.log("questionId is:", results[i].questionId);
+          for (let j = i + 1; j < results.length; j++) {
+            if (results[i].questionId == results[j].questionId) {
+              if (results[i].date > results[j].date) {
+                results.splice(j, 1);
+              } else {
+                results.splice(i, 1);
+              }
+            }
+          }
+        }
+        //-----remove old saved answerd in each exam finish-------
+
         //  res.json(results);
 
         console.log("Line 81-results are in api:", results);
-        // console.log("Line 100-results are in api-json:", res.json(results));
         console.log("Line 83-req.user.id:", req.user.id);
+
         //----finding correct answers start--------
         Exam.findById(req.body.examId)
           .then(exam => {
-            exam.qExam.sQuestions
-              .forEach(
-                que =>
-                  //  {
-                  //   if (
-                  //     results.selectedAnswers.indexOf(
-                  //       que.answers.answer01.ansText
-                  //     ) !== -1 &&
-                  //     que.answers.answer01.ansCorrect == true
-                  //   ) {
-                  //     console.log(
-                  //       "answer01 is:",
-                  //       que.answers.answer01.ansCorrect
-                  //     );
-                  //   } else {
-                  //     console.log("Answer01 is Incorrect Answer");
-                  //   }
-                  // }
-                  console.log("Line 87--exam.qExam.sQuestions", que.answers)
-                //   results.selectedAnswers.indexOf(
-                //     que.answers.answer01.ansText
-                //   ) !== -1 && que.answers.answer01.ansCorrect == true
-                //     ? console.log("answer01 is:", que.answers.answer01.ansCorrect)
-                //     : console.log("Answer01 is Incorrect Answer")
-              )
-              .catch(err =>
-                //  console.log("Line 100 error is:", err)
-                res
-                  .status(404)
-                  .json({ noresultfound: "No result found for this user" })
-              );
-            // //----finding correct answers finish-------
+            // console.log(
+            //   "Line 108-exam.qExam.sQuestions is:",
+            //   exam.qExam.sQuestions
+            // );
+            exam.qExam.sQuestions.forEach(que => {
+              results.forEach(result => {
+                if (que._id == result.questionId) {
+                  //-------Points pass algorithem start ---
+                  // if answer is correct pass is 1
+                  // if answer is incorrect pass is -1
+                  // if answer didn't selected correct pass is 0
+                  //-------Points pass algorithem finished ---
+
+                  //-----choose answer01------
+                  if (
+                    result.selectedAnswers.indexOf(
+                      que.answers.answer01.ansText
+                    ) !== -1
+                  ) {
+                    if (que.answers.answer01.ansCorrect == true) {
+                      console.log(
+                        "You chose answer01 and it is CORRECT:",
+                        que.answers.answer01.ansCorrect
+                      );
+                      result.answerSelectPass.answer01pass = 1;
+                    } else {
+                      console.log("You chose answer01 and it is INCORRECT:");
+                      result.answerSelectPass.answer01pass = -1;
+                    }
+                  } else {
+                    console.log("You didn't choose answer01");
+                    result.answerSelectPass.answer01pass = 0;
+                  }
+                  //-----choose answer02------
+                  if (
+                    result.selectedAnswers.indexOf(
+                      que.answers.answer02.ansText
+                    ) !== -1
+                  ) {
+                    if (que.answers.answer02.ansCorrect == true) {
+                      console.log(
+                        "You chose answer02 and it is CORRECT:",
+                        que.answers.answer02.ansCorrect
+                      );
+                      result.answerSelectPass.answer02pass = 1;
+                    } else {
+                      console.log("You chose answer02 and it is INCORRECT:");
+                      result.answerSelectPass.answer02pass = -1;
+                    }
+                  } else {
+                    console.log("You didn't choose answer02");
+                    result.answerSelectPass.answer02pass = 0;
+                  }
+                  //-----choose answer03------
+                  if (
+                    result.selectedAnswers.indexOf(
+                      que.answers.answer03.ansText
+                    ) !== -1
+                  ) {
+                    if (que.answers.answer03.ansCorrect == true) {
+                      console.log(
+                        "You chose answer03 and it is CORRECT:",
+                        que.answers.answer03.ansCorrect
+                      );
+                      result.answerSelectPass.answer03pass = 1;
+                    } else {
+                      console.log("You chose answer03 and it is INCORRECT:");
+                      result.answerSelectPass.answer03pass = -1;
+                    }
+                  } else {
+                    console.log("You didn't choose answer03");
+                    result.answerSelectPass.answer03pass = 0;
+                  }
+                  //-----choose answer04------
+                  if (
+                    result.selectedAnswers.indexOf(
+                      que.answers.answer04.ansText
+                    ) !== -1
+                  ) {
+                    if (que.answers.answer04.ansCorrect == true) {
+                      console.log(
+                        "You chose answer04 and it is CORRECT:",
+                        que.answers.answer04.ansCorrect
+                      );
+                      result.answerSelectPass.answer04pass = 1;
+                    } else {
+                      console.log("You chose answer04 and it is INCORRECT:");
+                      result.answerSelectPass.answer04pass = -1;
+                    }
+                  } else {
+                    console.log("You didn't choose answer04");
+                    result.answerSelectPass.answer04pass = 0;
+                  }
+                  console.log(
+                    "result.answerSelectPass is:",
+                    result.answerSelectPass
+                  );
+                }
+              });
+              //-----------control clg start -----------
+              console.log(
+                "Line 106--exam.qExam.sQuestions.answers.answer01:",
+                que.answers.answer01
+              ),
+                console.log(
+                  "Line 110--exam.qExam.sQuestions.answers.answer02:",
+                  que.answers.answer02
+                ),
+                console.log(
+                  "Line 115--exam.qExam.sQuestions.answers.answer03",
+                  que.answers.answer03
+                ),
+                console.log(
+                  "Line 118--exam.qExam.sQuestions.answers.answer04",
+                  que.answers.answer04
+                );
+              //-----------control clg finish -----------
+            });
+
+            //----finding correct answers finish-------
 
             const newExamResult = new ExamResult({
               examId: req.body.examId,
@@ -129,9 +233,7 @@ router.post(
             newExamResult.save().then(examresult => res.json(examresult));
           })
           .catch(err =>
-            res
-              .status(404)
-              .json({ noresultfound: "No result found for this user" })
+            res.status(404).json({ noexamfound: "No exam found for this user" })
           );
         //------------
       })
