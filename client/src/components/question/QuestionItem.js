@@ -12,7 +12,32 @@ class QuestionItem extends Component {
       <div>
         <h4 className="mb-4">Physics Question</h4>
 
-        <p>{this.props.question._id}</p>
+        <p>Question ID is: {this.props.question._id}</p>
+
+        {/* {console.log("this.props.question.answers:", [
+          this.props.question.answers.answer01.ansCorrect,
+          this.props.question.answers.answer02.ansCorrect,
+          this.props.question.answers.answer03.ansCorrect,
+          this.props.question.answers.answer04.ansCorrect
+        ])} */}
+
+        {!isEmpty(this.props.question.answers) ? (
+          [
+            this.props.question.answers.answer01.ansCorrect,
+            this.props.question.answers.answer02.ansCorrect,
+            this.props.question.answers.answer03.ansCorrect,
+            this.props.question.answers.answer04.ansCorrect
+          ].filter(function(value) {
+            return value === true;
+          }).length > 1 ? (
+            <p>Question Type: Multiple Choice</p>
+          ) : (
+            <p>Question Type: Single Choice</p>
+          )
+        ) : (
+          <p>Question Type: Short Answer/Essay Question</p>
+        )}
+
         <p>{this.props.question.mainText}</p>
         <ol>
           <li>{this.props.question.answers.answer01.ansText}</li>
@@ -20,6 +45,7 @@ class QuestionItem extends Component {
           <li>{this.props.question.answers.answer03.ansText}</li>
           <li>{this.props.question.answers.answer04.ansText}</li>
         </ol>
+
         {console.log(this.props.question.questionImage)}
         {!isEmpty(this.props.question.questionImage) ? (
           <img

@@ -37,22 +37,22 @@ module.exports = function validateQuestionInput(data) {
   if (Validator.isEmpty(data.answerText01)) {
     errors.answerText01 = "Answer one field is required";
   } else if (Validator.isEmpty(data.answerCorrect01)) {
-    errors.answerCorrect01 = "Correction of answer tick is required";
+    errors.answerCorrect01 = "Is this answer True or False?";
   }
   if (Validator.isEmpty(data.answerText02)) {
     errors.answerText02 = "Answer two field is required";
   } else if (Validator.isEmpty(data.answerCorrect02)) {
-    errors.answerCorrect02 = "Correction of answer tick is required";
+    errors.answerCorrect02 = "Is this answer True or False?";
   }
   if (Validator.isEmpty(data.answerText03)) {
     errors.answerText03 = "Answer three field is required";
   } else if (Validator.isEmpty(data.answerCorrect03)) {
-    errors.answerCorrect03 = "Correction of answer tick is required";
+    errors.answerCorrect03 = "Is this answer True or False?";
   }
   if (Validator.isEmpty(data.answerText04)) {
     errors.answerText04 = "Answer four field is required";
   } else if (Validator.isEmpty(data.answerCorrect04)) {
-    errors.answerCorrect04 = "Correction of answer tick is required";
+    errors.answerCorrect04 = "Is this answer True or False?";
   }
 
   if (Validator.isEmpty(data.courseId)) {
