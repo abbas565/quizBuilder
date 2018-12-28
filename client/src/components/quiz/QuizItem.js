@@ -32,10 +32,16 @@ class QuizItem extends Component {
             <li key={question.mainText}>
               {question.mainText}
               <ol>
-                <li>{question.answers.answer01.ansText}</li>
-                <li>{question.answers.answer02.ansText}</li>
-                <li>{question.answers.answer03.ansText}</li>
-                <li>{question.answers.answer04.ansText}</li>
+                {question.questionType == 1 || question.questionType == 2 ? (
+                  <ol>
+                    <li>{question.answers.answer01.ansText}</li>
+                    <li>{question.answers.answer02.ansText}</li>
+                    <li>{question.answers.answer03.ansText}</li>
+                    <li>{question.answers.answer04.ansText}</li>
+                  </ol>
+                ) : (
+                  <p>This question needs descriptional answer</p>
+                )}
 
                 {!isEmpty(question.questionImage) ? (
                   <img

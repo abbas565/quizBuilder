@@ -10,6 +10,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Checkbox from "@material-ui/core/Checkbox";
 import IconButton from "@material-ui/core/IconButton";
 import CommentIcon from "@material-ui/icons/Comment";
+import TextAreaFieldGroup from "./TextAreaFieldGroup";
 
 const styles = theme => ({
   root: {
@@ -24,11 +25,13 @@ class CheckboxList extends React.Component {
     super(props);
     this.state = {
       checked: [],
+      answerDescript: "",
       errors: {}
     };
 
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
   handleToggle = value => () => {
@@ -47,18 +50,30 @@ class CheckboxList extends React.Component {
     });
   };
 
+  onChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
   handleFormSubmit = formSubmitEvent => {
     formSubmitEvent.preventDefault();
 
     const { user } = this.props.auth;
-    const { examId, studentId, questionId, examRunId } = this.props;
+    const {
+      examId,
+      studentId,
+      questionId,
+      examRunId,
+      questionType
+    } = this.props;
 
     const newQuestionAnswer = {
       questionId: questionId,
       examId: examId,
       examRunId: examRunId,
       studentId: studentId,
-      selectedAnswers: this.state.checked
+      selectedAnswers: this.state.checked,
+      answerDescript: this.state.answerDescript,
+      questionType: questionType
     };
     console.log("formsubmit in checkBoxComonent is working!");
     // console.log("selected is:", this.state.selected);
@@ -68,24 +83,77 @@ class CheckboxList extends React.Component {
     this.props.buildQuestionResult(newQuestionAnswer);
 
     // this.setState({
-    //   quizName: "",
-    //   selected: [],
-    //   selectedQueId: [],
-    //   sQuestions: [],
-    //   quizOwner: ""
+    //   checked: [],
+    //   answerDescript: "",
+    //   errors: {}
     // });
-
-    // this.forceUpdate();
   };
 
   render() {
-    const { classes, items, title } = this.props;
+    const { classes, items, title, questionType } = this.props;
     console.log("checked in CheckBoxList", this.state.checked);
+    console.log("Line 84- items are:", items);
     return (
       <List className={classes.root}>
         <form onSubmit={this.handleFormSubmit}>
           <h2>{title}</h2>
-          {items.map(value => (
+
+          {questionType == 1 ? (
+            items.map(value => (
+              <ListItem
+                key={value}
+                role={undefined}
+                dense
+                button
+                onClick={this.handleToggle(value)}
+              >
+                <Checkbox
+                  checked={this.state.checked.indexOf(value) !== -1}
+                  tabIndex={-1}
+                  disableRipple
+                />
+                <ListItemText primary={`Answer: ${value}`} />
+                <ListItemSecondaryAction>
+                  <IconButton aria-label="Comments">
+                    <CommentIcon />
+                  </IconButton>
+                </ListItemSecondaryAction>
+              </ListItem>
+            ))
+          ) : questionType == 2 ? (
+            items.map(value => (
+              <ListItem
+                key={value}
+                role={undefined}
+                dense
+                button
+                onClick={this.handleToggle(value)}
+              >
+                <Checkbox
+                  checked={this.state.checked.indexOf(value) !== -1}
+                  tabIndex={-1}
+                  disableRipple
+                />
+                <ListItemText primary={`Answer: ${value}`} />
+                <ListItemSecondaryAction>
+                  <IconButton aria-label="Comments">
+                    <CommentIcon />
+                  </IconButton>
+                </ListItemSecondaryAction>
+              </ListItem>
+            ))
+          ) : (
+            <TextAreaFieldGroup
+              placeholder="* Type your answer here please"
+              name="answerDescript"
+              value={this.state.answerDescript}
+              onChange={this.onChange}
+              // error={errors.answerDescript}
+              info="The descriptional answer"
+            />
+          )}
+
+          {/* {items.map(value => (
             <ListItem
               key={value}
               role={undefined}
@@ -105,8 +173,15 @@ class CheckboxList extends React.Component {
                 </IconButton>
               </ListItemSecondaryAction>
             </ListItem>
-          ))}
-
+          ))} */}
+          {/* <TextAreaFieldGroup
+            placeholder="* Type your answer here please"
+            name="answerDescript"
+            value={this.state.answerDescript}
+            onChange={this.onChange}
+            // error={errors.answerDescript}
+            info="The descriptional answer"
+          /> */}
           <button className="btn btn-default" type="submit">
             Save Answer
           </button>
@@ -121,6 +196,7 @@ CheckboxList.propTypes = {
   buildQuestionResult: PropTypes.func.isRequired,
   // items: PropTypes.arrey.isRequired,
   // key: PropTypes.string.isRequired,
+  questionType: PropTypes.number.isRequired,
   questionId: PropTypes.string.isRequired,
   examId: PropTypes.string.isRequired,
   examRunId: PropTypes.string.isRequired,

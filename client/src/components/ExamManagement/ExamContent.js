@@ -73,6 +73,7 @@ class ExamContent extends Component {
         title={sQ.mainText}
         key={sQ._id}
         questionId={sQ._id}
+        questionType={sQ.questionType}
         examId={selectedExam._id}
         studentId={auth.user.id}
         examRunId={examRunId}

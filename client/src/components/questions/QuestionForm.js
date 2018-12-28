@@ -11,15 +11,16 @@ class QuestionForm extends Component {
     super(props);
     this.state = {
       mainText: "",
+      questionType: "",
       referenceBook: "",
       answerText01: "",
-      answerCorrect01: "",
+      answerCorrect01: false,
       answerText02: "",
-      answerCorrect02: "",
+      answerCorrect02: false,
       answerText03: "",
-      answerCorrect03: "",
+      answerCorrect03: false,
       answerText04: "",
-      answerCorrect04: "",
+      answerCorrect04: false,
       courseId: "",
       courseLevel: "",
       questionImage: null,
@@ -44,6 +45,7 @@ class QuestionForm extends Component {
     var questionFormData = new FormData();
     questionFormData.set("mainText", this.state.mainText);
     questionFormData.set("referenceBook", this.state.referenceBook);
+    questionFormData.set("questionType", this.state.questionType);
     questionFormData.set("answerText01", this.state.answerText01);
     questionFormData.set("answerCorrect01", this.state.answerCorrect01);
     questionFormData.set("answerText02", this.state.answerText02);
@@ -81,14 +83,15 @@ class QuestionForm extends Component {
     this.setState({
       mainText: "",
       referenceBook: "",
+      questionType: "",
       answerText01: "",
-      answerCorrect01: "",
+      answerCorrect01: false,
       answerText02: "",
-      answerCorrect02: "",
+      answerCorrect02: false,
       answerText03: "",
-      answerCorrect03: "",
+      answerCorrect03: false,
       answerText04: "",
-      answerCorrect04: "",
+      answerCorrect04: false,
       courseId: "",
       courseLevel: "",
       questionImage: null
@@ -114,6 +117,14 @@ class QuestionForm extends Component {
       { label: "In Correct", value: "false" }
     ];
 
+    // Select Question Type
+    const questionTypes = [
+      { label: "* Choose Question Type", value: 0 },
+      { label: "Multiple Choices Question", value: 1 },
+      { label: "Single Choice Question", value: 2 },
+      { label: "Short Answer/Essay Question", value: 3 }
+    ];
+
     return (
       <div className="post-form mb-3">
         <div className="card card-info">
@@ -124,7 +135,7 @@ class QuestionForm extends Component {
             <form onSubmit={this.onSubmit}>
               <div className="form-group">
                 <TextAreaFieldGroup
-                  placeholder="* Question text..."
+                  placeholder="* Enter Question Main Text..."
                   name="mainText"
                   value={this.state.mainText}
                   onChange={this.onChange}
@@ -132,13 +143,22 @@ class QuestionForm extends Component {
                   info="The question ......."
                 />
                 <TextFieldGroup
-                  placeholder="* Reference Book ..."
+                  placeholder="* Enter Reference Book ..."
                   name="referenceBook"
                   type="text"
                   value={this.state.referenceBook}
                   onChange={this.onChange}
                   error={errors.referenceBook}
                   info="The Reference Book ......."
+                />
+                <SelectListGroup
+                  placeholder="* Choise Question Type ..."
+                  name="questionType"
+                  value={this.state.questionType}
+                  onChange={this.onChange}
+                  options={questionTypes}
+                  error={errors.questionType}
+                  info="Question Type........."
                 />
                 <TextFieldGroup
                   placeholder="* Answer One ..."
@@ -165,7 +185,7 @@ class QuestionForm extends Component {
                   value={this.state.answerText02}
                   onChange={this.onChange}
                   error={errors.answerText02}
-                  info="The Answer One  ......."
+                  info="The Answer Two  ......."
                 />
                 <SelectListGroup
                   placeholder="* Answer Two True/False"
@@ -183,7 +203,7 @@ class QuestionForm extends Component {
                   value={this.state.answerText03}
                   onChange={this.onChange}
                   error={errors.answerText03}
-                  info="The Answer One  ......."
+                  info="The Answer Three  ......."
                 />
                 <SelectListGroup
                   placeholder="* Answer Three True/False"
@@ -201,7 +221,7 @@ class QuestionForm extends Component {
                   value={this.state.answerText04}
                   onChange={this.onChange}
                   error={errors.answerText04}
-                  info="The Answer One  ......."
+                  info="The Answer Four  ......."
                 />
                 <SelectListGroup
                   placeholder="* Answer four True/False"

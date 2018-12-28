@@ -15,6 +15,13 @@ const QuestionSchema = new Schema({
     type: String
     // required: true
   },
+  questionType: {
+    type: Number
+    // required: true
+    // Number 1 is Multiple Choices Question
+    // Number 2 is Single Choice Question
+    // Number 3 is Short Answer/Essay Question
+  },
   answers: {
     answer01: {
       ansText: {

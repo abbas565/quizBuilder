@@ -92,10 +92,12 @@ router.post(
         }
 
         const imagePath = !isEmpty(req.file) ? req.file.path : null;
+        console.log("Line 95-Question type is:", req.body.questionType);
 
         const newQuestion = new Question({
           mainText: req.body.mainText,
           referenceBook: req.body.referenceBook,
+          questionType: req.body.questionType,
           answers: {
             answer01: {
               ansText: req.body.answerText01,

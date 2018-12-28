@@ -44,6 +44,7 @@ router.post(
       examRunId: req.body.examRunId,
       studentId: req.body.studentId,
       selectedAnswers: req.body.selectedAnswers,
+      answerDescript: req.body.answerDescript,
 
       //--user means insteructor----
       user: req.user.id

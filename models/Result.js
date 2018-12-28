@@ -19,6 +19,9 @@ const ResultSchema = new Schema({
   studentId: {
     type: String
   },
+  answerDescript: {
+    type: String
+  },
   selectedAnswers: {
     type: Array
   },
