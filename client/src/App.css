@@ -57,3 +57,7 @@ img {
 .form-control::placeholder {
   color: #bbb !important;
 }
+
+.disabled-link {
+  pointer-events: none;
+}

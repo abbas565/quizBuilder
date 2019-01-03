@@ -21,6 +21,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from "@material-ui/icons/Delete";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import { lighten } from "@material-ui/core/styles/colorManipulator";
+import Button from "../common/Button";
 // import TextFieldGroup from "./TextFieldGroup";
 import isEmpty from "../../validation/is-empty";
 import Moment from "react-moment";
@@ -461,7 +462,8 @@ class ExamFeed extends React.Component {
                       <TableCell>
                         <Link
                           to={`/exams/${n.examId}`}
-                          className="btn btn-info"
+                          // className="btn btn-secondary  disabled-link"
+                          className="btn btn-secondary"
                         >
                           View Exam
                         </Link>
@@ -472,7 +474,7 @@ class ExamFeed extends React.Component {
                             pathname: `/examrun`,
                             examId: `${n.examId}`
                           }}
-                          className="btn btn-primary"
+                          className="btn btn-outline-primary"
                         >
                           Start Exam
                         </Link>

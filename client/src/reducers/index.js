@@ -6,6 +6,7 @@ import questionReducer from "./questionReducer";
 import quizReducer from "./quizReducer";
 import examReducer from "./examReducer";
 import resultReducer from "./resultReducer";
+import postReducer from "./postReducer";
 
 export default combineReducers({
   auth: authReducer,
@@ -14,5 +15,6 @@ export default combineReducers({
   question: questionReducer,
   quiz: quizReducer,
   exam: examReducer,
-  result: resultReducer
+  result: resultReducer,
+  post: postReducer
 });

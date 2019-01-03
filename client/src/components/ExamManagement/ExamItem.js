@@ -8,13 +8,14 @@ import QuestionView from "../question/QuestionView";
 class ExamItem extends Component {
   render() {
     const { exam, auth, showActions } = this.props;
+    console.log("Line 11- this.props is:", this.props);
 
     return (
       <div>
         <h4 className="mb-4">Physics Exam</h4>
 
         <p>Exam ID:{this.props.exam._id}</p>
-        <p>Exam Name: {this.props.exam.examName}</p>
+        <p>Exam Title: {this.props.exam.examName}</p>
         <p>Exam Instructor: {this.props.exam.examOwner}</p>
 
         {/* <ol>

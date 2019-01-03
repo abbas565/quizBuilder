@@ -68,8 +68,8 @@ router.get(
             .sort({ date: -1 })
             .then(exams => {
               res.json(exams);
-              console.log("Line 81-exams are in api:", exams);
-              console.log("req.user.id:", req.user.id);
+              // console.log("Line 71-exams are in api:", exams);
+              // console.log("req.user.id:", req.user.id);
             })
             .catch(err =>
               res
@@ -115,6 +115,8 @@ router.get(
           } else {
             // Show exam
             res.json(exam);
+            // console.log("Line 118-exam is in api:", exam);
+            // console.log("req.user.id:", req.user.id);
           }
         })
         .catch(err =>

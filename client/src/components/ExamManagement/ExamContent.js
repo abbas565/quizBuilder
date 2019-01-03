@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { buildExamResult } from "../../actions/resultActions";
 import Moment from "react-moment";
 import isEmpty from "./../../validation/is-empty";
@@ -85,9 +86,18 @@ class ExamContent extends Component {
         <div>
           <form onSubmit={this.handleFormSubmit}>
             {examContent}
-            <button className="btn btn-default" type="submit">
+            <button className="btn btn-success" type="submit">
               Submit Exam
             </button>
+            <Link
+              to={{
+                pathname: `/feed`,
+                examId: `${selectedExam._id}`
+              }}
+              className="btn btn btn-outline-warning"
+            >
+              Send Comment
+            </Link>
           </form>
         </div>
       </div>

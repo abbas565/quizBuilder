@@ -182,9 +182,12 @@ class CheckboxList extends React.Component {
             // error={errors.answerDescript}
             info="The descriptional answer"
           /> */}
-          <button className="btn btn-default" type="submit">
+          <button className="btn btn-primary" type="submit">
             Save Answer
           </button>
+          {/* <button className="btn btn-outline-warning" type="submit">
+            Send Comment
+          </button> */}
         </form>
       </List>
     );

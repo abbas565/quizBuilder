@@ -57,12 +57,13 @@ export const getExam = id => dispatch => {
   console.log("get exam action dispatched...");
   axios
     .get(`/api/exams/${id}`)
-    .then(res =>
+    .then(res => {
+      console.log("GET_EXAM payload:", res.data);
       dispatch({
         type: GET_EXAM,
         payload: res.data
-      })
-    )
+      });
+    })
     .catch(err =>
       dispatch({
         type: GET_EXAM,

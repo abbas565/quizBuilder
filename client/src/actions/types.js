@@ -35,7 +35,9 @@ export const ADD_EXAM_RESULT = "ADD_EXAM_RESULT";
 
 export const RESULT_LOADING = "RESULT_LOADING";
 
-// export const DO_QUIZ = "DO_QUIZ";
-// export const GET_RESULTS = "GET_RESULTS";
-// export const GET_RESULT = "GET_RESULT";
-// export const DELETE_RESULT = "DELETE_QUIZ";
+export const POST_LOADING = "POST_LOADING";
+export const GET_POSTS = "GET_POSTS";
+export const GET_POSTS_EXAMID = "GET_POSTS_EXAMID";
+export const GET_POST = "GET_POST";
+export const ADD_POST = "ADD_POST";
+export const DELETE_POST = "DELETE_POST";

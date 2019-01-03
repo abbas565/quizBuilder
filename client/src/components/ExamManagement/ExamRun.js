@@ -31,8 +31,8 @@ class ExamRun extends Component {
     });
     console.log("sExam in ExamRun is", sExam);
     console.log("sAnswers in ExamRun are", sAnswers);
-    let quizContent;
-    quizContent = (
+    let selectedExamContent;
+    selectedExamContent = (
       <ExamContent
         selectedExam={sExam}
         selectedAnswer={sAnswers}
@@ -43,7 +43,7 @@ class ExamRun extends Component {
     return (
       <div>
         <h4 className="mb-4">Physics Exam...........</h4>
-        <div>{quizContent}</div>
+        <div>{selectedExamContent}</div>
       </div>
     );
   }
