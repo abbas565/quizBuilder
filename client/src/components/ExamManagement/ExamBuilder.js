@@ -472,7 +472,7 @@ class ExamBuilder extends React.Component {
           <TextFieldGroup
             placeholder="* Enter Start Time"
             name="startTime"
-            type="date"
+            type="datetime-local"
             value={this.state.startTime}
             onChange={this.onChange}
             error={errors.startTime}
@@ -481,7 +481,7 @@ class ExamBuilder extends React.Component {
           <TextFieldGroup
             placeholder="* Enter finish Time"
             name="finishTime"
-            type="date"
+            type="datetime-local"
             value={this.state.finishTime}
             onChange={this.onChange}
             error={errors.finishTime}

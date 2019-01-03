@@ -56,11 +56,19 @@ class PostItem extends Component {
             <Moment format="DD MMM YYYY HH:mm">{post.date}</Moment>
           </div>
           <div className="col-md-10">
-            <h5>Exam ID: {post.examId}</h5>
+            {/* <h5>Exam ID: {post.examId}</h5> */}
             <h5>Exam Title: {exam.examName}</h5>
             <h5>Exam Instructor: {exam.examOwner}</h5>
-            <h5>Exam Start Date: {exam.startTime}</h5>
-            <h5>Exam Finish Date: {exam.finishTime}</h5>
+            <h5>
+              Exam Start Date:{" "}
+              <Moment format="DD MMM YYYY HH:mm">{exam.startTime}</Moment>
+            </h5>
+            <h5>
+              Exam Finish Date:{" "}
+              <Moment format="DD MMM YYYY HH:mm">{exam.finishTime}</Moment>
+            </h5>
+            {/* <h5>Exam Start Date: {exam.startTime}</h5>
+            <h5>Exam Finish Date: {exam.finishTime}</h5> */}
             <p className="lead">{post.text}</p>
             {showActions ? (
               <span>

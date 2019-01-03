@@ -453,17 +453,25 @@ class ExamFeed extends React.Component {
                       </TableCell>
                       <TableCell>{n.examOwner}</TableCell>
                       <TableCell>
-                        <Moment format="YYYY/MM/DD">{n.startTime}</Moment>
+                        <Moment format="DD MMM YYYY (HH:mm)">
+                          {n.startTime}
+                        </Moment>
                       </TableCell>
                       <TableCell>
-                        <Moment format="YYYY/MM/DD">{n.finishTime}</Moment>
+                        <Moment format="DD MMM YYYY (HH:mm)">
+                          {n.finishTime}
+                        </Moment>
                       </TableCell>
                       {/* </Link> */}
                       <TableCell>
                         <Link
                           to={`/exams/${n.examId}`}
-                          // className="btn btn-secondary  disabled-link"
-                          className="btn btn-secondary"
+                          className={
+                            new Date().getTime() < Date.parse(n.startTime) ||
+                            new Date().getTime() > Date.parse(n.finishTime)
+                              ? "btn btn-outline-secondary  disabled-link"
+                              : "btn btn-outline-secondary"
+                          }
                         >
                           View Exam
                         </Link>
@@ -474,7 +482,12 @@ class ExamFeed extends React.Component {
                             pathname: `/examrun`,
                             examId: `${n.examId}`
                           }}
-                          className="btn btn-outline-primary"
+                          className={
+                            new Date().getTime() < Date.parse(n.startTime) ||
+                            new Date().getTime() > Date.parse(n.finishTime)
+                              ? "btn btn-outline-primary  disabled-link"
+                              : "btn btn-outline-primary"
+                          }
                         >
                           Start Exam
                         </Link>
