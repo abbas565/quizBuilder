@@ -4,7 +4,7 @@ import {
   ADD_RESULT,
   ADD_EXAM_RESULT,
   // GET_EXAMS,
-  // GET_EXAM,
+  GET_EXAM_RESULT,
   GET_ERRORS,
   RESULT_LOADING
   // DELETE_RESULT,
@@ -55,6 +55,26 @@ export const buildExamResult = newExamId => dispatch => {
     );
 };
 
+// Get ExamResult
+export const getExamResult = id => dispatch => {
+  // dispatch(setResultLoading());
+  console.log("getExamResult action dispatched...");
+  axios
+    .get(`/api/results/${id}`)
+    .then(res =>
+      dispatch({
+        type: GET_EXAM_RESULT,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: null
+      })
+    );
+};
+
 // Set loading state
 export const setResultLoading = () => {
   return {
@@ -101,26 +121,6 @@ export const setResultLoading = () => {
 //       })
 //     );
 //   // console.log("GET_EXAMS payload:", payload);
-// };
-
-// // Get Exam
-// export const getExam = id => dispatch => {
-//   dispatch(setExamLoading());
-//   console.log("get exam action dispatched...");
-//   axios
-//     .get(`/api/exams/${id}`)
-//     .then(res =>
-//       dispatch({
-//         type: GET_EXAM,
-//         payload: res.data
-//       })
-//     )
-//     .catch(err =>
-//       dispatch({
-//         type: GET_EXAM,
-//         payload: null
-//       })
-//     );
 // };
 
 // // Delete Exam

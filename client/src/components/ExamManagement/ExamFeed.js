@@ -469,7 +469,7 @@ class ExamFeed extends React.Component {
                           className={
                             new Date().getTime() < Date.parse(n.startTime) ||
                             new Date().getTime() > Date.parse(n.finishTime)
-                              ? "btn btn-outline-secondary  disabled-link"
+                              ? "btn btn-outline-secondary" //  disabled-link"
                               : "btn btn-outline-secondary"
                           }
                         >
@@ -485,13 +485,29 @@ class ExamFeed extends React.Component {
                           className={
                             new Date().getTime() < Date.parse(n.startTime) ||
                             new Date().getTime() > Date.parse(n.finishTime)
-                              ? "btn btn-outline-primary  disabled-link"
+                              ? "btn btn-outline-primary" //  disabled-link"
                               : "btn btn-outline-primary"
                           }
                         >
                           Start Exam
                         </Link>
                       </TableCell>
+                      {/* <TableCell>
+                        <Link
+                          to={{
+                            pathname: `/resultview`,
+                            examId: `${n.examId}`
+                          }}
+                          className={
+                            // new Date().getTime() < Date.parse(n.startTime) ||
+                            new Date().getTime() < Date.parse(n.finishTime)
+                              ? "btn btn-outline-primary " //disabled-link"
+                              : "btn btn-outline-primary"
+                          }
+                        >
+                          Show Result
+                        </Link>
+                      </TableCell> */}
                     </TableRow>
                   );
                 })}

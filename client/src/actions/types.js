@@ -27,6 +27,7 @@ export const DELETE_QUIZ = "DELETE_QUIZ";
 export const ADD_EXAM = "ADD_EXAM";
 export const GET_EXAMS = "GET_EXAMS";
 export const GET_EXAM = "GET_EXAM";
+export const GET_EXAM_RESULT = "GET_EXAM_RESULT";
 export const EXAM_LOADING = "EXAM_LOADING";
 export const DELETE_EXAM = "DELETE_EXAM";
 

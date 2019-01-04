@@ -11,6 +11,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import IconButton from "@material-ui/core/IconButton";
 import CommentIcon from "@material-ui/icons/Comment";
 import TextAreaFieldGroup from "./TextAreaFieldGroup";
+import RadioButtonsGroup from "./RadioButtonsGroup";
 
 const styles = theme => ({
   root: {
@@ -121,6 +122,7 @@ class CheckboxList extends React.Component {
               </ListItem>
             ))
           ) : questionType == 2 ? (
+            // <RadioButtonsGroup items={items} title={title} />
             items.map(value => (
               <ListItem
                 key={value}

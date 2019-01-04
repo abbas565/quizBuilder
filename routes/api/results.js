@@ -79,24 +79,28 @@ router.post(
       .sort({ questionId: -1 })
       .then(results => {
         //-----remove old saved answerd in each exam start-------
-        for (let i = 0; i < results.length; i++) {
-          console.log("questionId is:", results[i].questionId);
-          for (let j = i + 1; j < results.length; j++) {
-            if (results[i].questionId == results[j].questionId) {
-              if (results[i].date > results[j].date) {
-                results.splice(j, 1);
-              } else {
-                results.splice(i, 1);
-              }
+        // console.log("Line 82-results.length is:", results);
+        const removeitems = [];
+        for (let i = 0; i < results.length - 1; i++) {
+          // console.log("questionId is:", results[i].questionId);
+          if (results[i].questionId == results[i + 1].questionId) {
+            if (results[i].date > results[i + 1].date) {
+              removeitems.push(results[i + 1]);
+            } else {
+              removeitems.push(results[i]);
             }
           }
         }
-        //-----remove old saved answerd in each exam finish-------
+
+        const newresults = results.filter(
+          item => removeitems.indexOf(item) == -1
+        );
+        console.log("Line 97-newresults is:", newresults);
 
         //  res.json(results);
 
-        console.log("Line 81-results are in api:", results);
-        console.log("Line 83-req.user.id:", req.user.id);
+        // console.log("Line 119-results are in api:", results);
+        // console.log("Line 120-req.user.id:", req.user.id);
 
         //----finding correct answers start--------
         Exam.findById(req.body.examId)
@@ -106,7 +110,7 @@ router.post(
             //   exam.qExam.sQuestions
             // );
             exam.qExam.sQuestions.forEach(que => {
-              results.forEach(result => {
+              newresults.forEach(result => {
                 if (que._id == result.questionId) {
                   //-------Points pass algorithem start ---
                   // if answer is correct pass is 1
@@ -226,7 +230,7 @@ router.post(
               examId: req.body.examId,
               examRunId: req.body.examRunId,
               studentId: req.body.studentId,
-              results: results,
+              results: newresults,
               //--user means insteructor----
               user: req.user.id
             });
@@ -241,6 +245,39 @@ router.post(
       .catch(err =>
         res.status(404).json({ noresultfound: "No result found for this user" })
       );
+  }
+);
+
+// @route   GET api/results/:id
+// @desc    Get examresult by examRunId
+// @access  Private
+router.get(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Profile.findOne({ user: req.user.id }).then(profile => {
+      ExamResult.findById(req.params.id)
+        .then(examresult => {
+          // Check for exam owner
+          if (
+            examresult.user.toString() !== req.user.id &&
+            req.user.name.toLowerCase() !== "admin" &&
+            examresult.studentId !== req.user.id
+          ) {
+            return res
+              .status(401)
+              .json({ notauthorized: "User not authorized" });
+          } else {
+            // Show exam
+            res.json(exam);
+          }
+        })
+        .catch(err =>
+          res.status(404).json({
+            noexamresultfound: "No examresult found with that examRunId"
+          })
+        );
+    });
   }
 );
 

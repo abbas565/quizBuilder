@@ -4,7 +4,8 @@ import {
   // GET_EXAM,
   ADD_EXAM_RESULT,
   GET_ERRORS,
-  RESULT_LOADING
+  RESULT_LOADING,
+  GET_EXAM_RESULT
   // DELETE_RESULT,
   //CLEAR_ERRORS,
 } from "../actions/types";
@@ -12,6 +13,7 @@ import {
 const initialState = {
   results: [],
   examresults: [],
+  examresult: {},
   result: {},
   loading: false
 };
@@ -40,12 +42,12 @@ export default function(state = initialState, action) {
     //       exams: action.payload,
     //       loading: false
     //     };
-    //   case GET_EXAM:
-    //     return {
-    //       ...state,
-    //       exam: action.payload,
-    //       loading: false
-    //     };
+    case GET_EXAM_RESULT:
+      return {
+        ...state,
+        examresult: action.payload,
+        loading: false
+      };
     //   case DELETE_EXAM:
     //     return {
     //       ...state,
