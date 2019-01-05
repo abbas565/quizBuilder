@@ -6,31 +6,32 @@ import isEmpty from "./../../validation/is-empty";
 import QuestionView from "../question/QuestionView";
 import CheckBoxList from "../common/CheckBoxList";
 import ExamContent from "./ExamContent";
-import uuid from "uuid/v1";
+import uuidv4 from "uuid/v4";
 
 class ExamRun extends Component {
   render() {
     const { exam, quiz, auth, showActions } = this.props;
-    console.log("exam in ExamRun is", exam);
-    console.log("ExamRun props are:", this.props);
-    console.log("Exam ID is:", this.props.location.examId);
+    // console.log("exam in ExamRun is", exam);
+    // console.log("ExamRun props are:", this.props);
+    // console.log("Exam ID is:", this.props.location.examId);
     let sExam;
     let sAnswers;
     let examRunId;
     exam.exams.forEach(pexam => {
       if (pexam._id == this.props.location.examId) {
-        console.log("Selected exam is", pexam);
-        console.log(
-          "Selected answer are",
-          pexam.qExam.sQuestions.map(ques => ques.answers)
-        );
         sExam = pexam;
         sAnswers = pexam.qExam.sQuestions.map(ques => ques.answers);
-        examRunId = uuid();
+        examRunId = uuidv4();
+        // console.log("Selected exam is", pexam);
+        // console.log(
+        //   "Selected answer are",
+        //   pexam.qExam.sQuestions.map(ques => ques.answers)
+        // );
+        console.log("examRunId", examRunId);
       }
     });
-    console.log("sExam in ExamRun is", sExam);
-    console.log("sAnswers in ExamRun are", sAnswers);
+    // console.log("sExam in ExamRun is", sExam);
+    // console.log("sAnswers in ExamRun are", sAnswers);
     let selectedExamContent;
     selectedExamContent = (
       <ExamContent

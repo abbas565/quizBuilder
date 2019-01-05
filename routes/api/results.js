@@ -236,6 +236,7 @@ router.post(
             });
             console.log("newExamResult is:", newExamResult);
             newExamResult.save().then(examresult => res.json(examresult));
+            // console.log("Line 239-examresult is:", examresult);
           })
           .catch(err =>
             res.status(404).json({ noexamfound: "No exam found for this user" })
@@ -256,21 +257,22 @@ router.get(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Profile.findOne({ user: req.user.id }).then(profile => {
-      ExamResult.findById(req.params.id)
+      ExamResult.find({ examId: req.params.id })
         .then(examresult => {
           // Check for exam owner
-          if (
-            examresult.user.toString() !== req.user.id &&
-            req.user.name.toLowerCase() !== "admin" &&
-            examresult.studentId !== req.user.id
-          ) {
-            return res
-              .status(401)
-              .json({ notauthorized: "User not authorized" });
-          } else {
-            // Show exam
-            res.json(exam);
-          }
+          // if (
+          //   examresult.user.toString() !== req.user.id &&
+          //   req.user.name.toLowerCase() !== "admin" &&
+          //   examresult.studentId !== req.user.id
+          // ) {
+          //   return res
+          //     .status(401)
+          //     .json({ notauthorized: "User not authorized" });
+          // } else {
+          //   // Show examresult
+          //   res.json(examresult);
+          // }
+          res.json(examresult);
         })
         .catch(err =>
           res.status(404).json({

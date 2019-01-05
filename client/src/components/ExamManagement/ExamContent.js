@@ -37,7 +37,6 @@ class ExamContent extends Component {
     // console.log("sQuestions are:", this.state.sQuestions);
     console.log("newExamId in ExamContent:", newExamId);
     this.props.buildExamResult(newExamId);
-    console.log("buildExamResult is:", this.state.result);
     // this.props.getExamResult(examRunId);
 
     // this.setState({
@@ -64,7 +63,7 @@ class ExamContent extends Component {
     console.log("selectedAnswer in ExamRun is:", selectedAnswer);
     console.log("Current user(Student) ID is:", auth.user.id);
 
-    console.log("buildExamResult is:", this.props.result);
+    console.log("buildExamResult is:", this.props.result.examresults);
 
     let examContent;
     examContent = selectedExam.qExam.sQuestions.map(sQ => (

@@ -44,7 +44,6 @@ export const buildExamResult = newExamId => dispatch => {
         payload: res.data
       })
     )
-    .then(console.log("ADD_EXAM_RESULT payload:", dispatch.payload))
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
