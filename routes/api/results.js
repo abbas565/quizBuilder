@@ -45,6 +45,8 @@ router.post(
       studentId: req.body.studentId,
       selectedAnswers: req.body.selectedAnswers,
       answerDescript: req.body.answerDescript,
+      items: req.body.items,
+      title: req.body.title,
 
       //--user means insteructor----
       user: req.user.id
@@ -135,8 +137,17 @@ router.post(
                       result.answerSelectPass.answer01pass = -1;
                     }
                   } else {
-                    console.log("You didn't choose answer01");
-                    result.answerSelectPass.answer01pass = 0;
+                    if (que.answers.answer01.ansCorrect == true) {
+                      console.log(
+                        "answer01 is CORRECT and You didn't choose it"
+                      );
+                      result.answerSelectPass.answer01pass = 2;
+                    } else {
+                      console.log(
+                        "answer01 is INCORRECT and You didn't choose answer01"
+                      );
+                      result.answerSelectPass.answer01pass = 0;
+                    }
                   }
                   //-----choose answer02------
                   if (
@@ -155,8 +166,17 @@ router.post(
                       result.answerSelectPass.answer02pass = -1;
                     }
                   } else {
-                    console.log("You didn't choose answer02");
-                    result.answerSelectPass.answer02pass = 0;
+                    if (que.answers.answer02.ansCorrect == true) {
+                      console.log(
+                        "answer02 is CORRECT and You didn't choose it"
+                      );
+                      result.answerSelectPass.answer02pass = 2;
+                    } else {
+                      console.log(
+                        "answer02 is INCORRECT and You didn't choose answer02"
+                      );
+                      result.answerSelectPass.answer02pass = 0;
+                    }
                   }
                   //-----choose answer03------
                   if (
@@ -175,8 +195,17 @@ router.post(
                       result.answerSelectPass.answer03pass = -1;
                     }
                   } else {
-                    console.log("You didn't choose answer03");
-                    result.answerSelectPass.answer03pass = 0;
+                    if (que.answers.answer03.ansCorrect == true) {
+                      console.log(
+                        "answer03 is CORRECT and You didn't choose it"
+                      );
+                      result.answerSelectPass.answer03pass = 2;
+                    } else {
+                      console.log(
+                        "answer03 is INCORRECT and You didn't choose answer03"
+                      );
+                      result.answerSelectPass.answer03pass = 0;
+                    }
                   }
                   //-----choose answer04------
                   if (
@@ -195,8 +224,17 @@ router.post(
                       result.answerSelectPass.answer04pass = -1;
                     }
                   } else {
-                    console.log("You didn't choose answer04");
-                    result.answerSelectPass.answer04pass = 0;
+                    if (que.answers.answer04.ansCorrect == true) {
+                      console.log(
+                        "answer04 is CORRECT and You didn't choose it"
+                      );
+                      result.answerSelectPass.answer04pass = 2;
+                    } else {
+                      console.log(
+                        "answer04 is INCORRECT and You didn't choose answer04"
+                      );
+                      result.answerSelectPass.answer04pass = 0;
+                    }
                   }
                   console.log(
                     "result.answerSelectPass is:",

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import classnames from "classnames";
 import { Link } from "react-router-dom";
 import { buildExamResult, getExamResult } from "../../actions/resultActions";
 import { getExam } from "../../actions/examActions";
@@ -8,6 +9,10 @@ import Moment from "react-moment";
 import isEmpty from "./../../validation/is-empty";
 import QuestionView from "../question/QuestionView";
 import CheckBoxList from "../common/CheckBoxList";
+import Checkboxes from "../common/Checkboxes";
+import Checkbox from "@material-ui/core/Checkbox";
+import green from "@material-ui/core/colors/green";
+import ResultIcon from "../common/ResultIcon";
 
 class ResultView extends Component {
   //   constructor(props) {
@@ -72,34 +77,37 @@ class ResultView extends Component {
 
     let resultViewContent;
     resultViewContent = this.props.result.examresults[0].results.map(result => (
-      <ul>
-        <li>{result.questionId}</li>
-        <li>{result.answerSelectPass.answer01pass}</li>
-        <li>{result.answerSelectPass.answer02pass}</li>
-        <li>{result.answerSelectPass.answer03pass}</li>
-        <li>{result.answerSelectPass.answer04pass}</li>
-      </ul>
-      // <CheckBoxList
-      //   items={[
-      //     sQ.answers.answer01.ansText,
-      //     sQ.answers.answer02.ansText,
-      //     sQ.answers.answer03.ansText,
-      //     sQ.answers.answer04.ansText
-      //   ]}
-      //   title={sQ.mainText}
-      //   key={sQ._id}
-      //   questionId={sQ._id}
-      //   questionType={sQ.questionType}
-      //   examId={selectedExam._id}
-      //   studentId={auth.user.id}
-      //   examRunId={examRunId}
-      // />
+      <div>
+        <h2>{result.title}</h2>
+        <ol>
+          <li>
+            <ResultIcon resultpoint={result.answerSelectPass.answer01pass} />
+            {/* {result.answerSelectPass.answer01pass} */}
+            <h3>{result.items[0]}</h3>
+          </li>
+          <li>
+            <ResultIcon resultpoint={result.answerSelectPass.answer02pass} />
+            {/* {result.answerSelectPass.answer02pass} */}
+            <h3>{result.items[1]}</h3>
+          </li>
+          <li>
+            <ResultIcon resultpoint={result.answerSelectPass.answer03pass} />
+            {/* {result.answerSelectPass.answer03pass} */}
+            <h3>{result.items[2]}</h3>
+          </li>
+          <li>
+            <ResultIcon resultpoint={result.answerSelectPass.answer04pass} />
+            {/* {result.answerSelectPass.answer04pass} */}
+            <h3>{result.items[3]}</h3>
+          </li>
+        </ol>
+        <p>{result.answerDescript}</p>
+      </div>
     ));
 
     return (
       <div>
         <div>
-          {/* <form onSubmit={this.handleFormSubmit}> */}
           {resultViewContent}
           {/* <button className="btn btn-success" type="submit">
               Submit Exam
@@ -114,23 +122,6 @@ class ResultView extends Component {
               Send Comment
             </Link> */}
           <h1>ResultView worked!!!!</h1>
-
-          {/* <Link
-            to={{
-              pathname: `/resultview`,
-              examId: `${examRunId}`
-            }}
-            className={
-              "btn btn-outline-primary "
-              // new Date().getTime() < Date.parse(n.startTime) ||
-              // new Date().getTime() < Date.parse(n.finishTime)
-              //   ? "btn btn-outline-primary " //disabled-link"
-              //   : "btn btn-outline-primary"
-            }
-          >
-            Show Result
-          </Link> */}
-          {/* </form> */}
         </div>
       </div>
     );

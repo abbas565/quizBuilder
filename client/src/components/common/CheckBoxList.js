@@ -64,7 +64,9 @@ class CheckboxList extends React.Component {
       studentId,
       questionId,
       examRunId,
-      questionType
+      questionType,
+      items,
+      title
     } = this.props;
 
     const newQuestionAnswer = {
@@ -72,6 +74,8 @@ class CheckboxList extends React.Component {
       examId: examId,
       examRunId: examRunId,
       studentId: studentId,
+      items: items,
+      title: title,
       selectedAnswers: this.state.checked,
       answerDescript: this.state.answerDescript,
       questionType: questionType
