@@ -125,30 +125,31 @@ class CheckboxList extends React.Component {
                 </ListItemSecondaryAction>
               </ListItem>
             ))
-          ) : questionType == 2 ? (
-            // <RadioButtonsGroup items={items} title={title} />
-            items.map(value => (
-              <ListItem
-                key={value}
-                role={undefined}
-                dense
-                button
-                onClick={this.handleToggle(value)}
-              >
-                <Checkbox
-                  checked={this.state.checked.indexOf(value) !== -1}
-                  tabIndex={-1}
-                  disableRipple
-                />
-                <ListItemText primary={`Answer: ${value}`} />
-                <ListItemSecondaryAction>
-                  <IconButton aria-label="Comments">
-                    <CommentIcon />
-                  </IconButton>
-                </ListItemSecondaryAction>
-              </ListItem>
-            ))
           ) : (
+            // questionType == 2 ? (
+            // <RadioButtonsGroup items={items} title={title} />
+            // items.map(value => (
+            //   <ListItem
+            //     key={value}
+            //     role={undefined}
+            //     dense
+            //     button
+            //     onClick={this.handleToggle(value)}
+            //   >
+            //     <Checkbox
+            //       checked={this.state.checked.indexOf(value) !== -1}
+            //       tabIndex={-1}
+            //       disableRipple
+            //     />
+            //     <ListItemText primary={`Answer: ${value}`} />
+            //     <ListItemSecondaryAction>
+            //       <IconButton aria-label="Comments">
+            //         <CommentIcon />
+            //       </IconButton>
+            //     </ListItemSecondaryAction>
+            //   </ListItem>
+            // ))
+            // ) :
             <TextAreaFieldGroup
               placeholder="* Type your answer here please"
               name="answerDescript"

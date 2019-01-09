@@ -7,6 +7,7 @@ import Moment from "react-moment";
 import isEmpty from "./../../validation/is-empty";
 import QuestionView from "../question/QuestionView";
 import CheckBoxList from "../common/CheckBoxList";
+import RadioButtonsGroup from "../common/RadioButtonsGroup";
 
 class ExamContent extends Component {
   constructor(props) {
@@ -66,23 +67,41 @@ class ExamContent extends Component {
     console.log("buildExamResult is:", this.props.result.examresults);
 
     let examContent;
-    examContent = selectedExam.qExam.sQuestions.map(sQ => (
-      <CheckBoxList
-        items={[
-          sQ.answers.answer01.ansText,
-          sQ.answers.answer02.ansText,
-          sQ.answers.answer03.ansText,
-          sQ.answers.answer04.ansText
-        ]}
-        title={sQ.mainText}
-        key={sQ._id}
-        questionId={sQ._id}
-        questionType={sQ.questionType}
-        examId={selectedExam._id}
-        studentId={auth.user.id}
-        examRunId={examRunId}
-      />
-    ));
+    examContent = selectedExam.qExam.sQuestions.map(sQ =>
+      sQ.questionType == 2 ? (
+        <RadioButtonsGroup
+          items={[
+            sQ.answers.answer01.ansText,
+            sQ.answers.answer02.ansText,
+            sQ.answers.answer03.ansText,
+            sQ.answers.answer04.ansText
+          ]}
+          title={sQ.mainText}
+          key={sQ._id}
+          questionId={sQ._id}
+          questionType={sQ.questionType}
+          examId={selectedExam._id}
+          studentId={auth.user.id}
+          examRunId={examRunId}
+        />
+      ) : (
+        <CheckBoxList
+          items={[
+            sQ.answers.answer01.ansText,
+            sQ.answers.answer02.ansText,
+            sQ.answers.answer03.ansText,
+            sQ.answers.answer04.ansText
+          ]}
+          title={sQ.mainText}
+          key={sQ._id}
+          questionId={sQ._id}
+          questionType={sQ.questionType}
+          examId={selectedExam._id}
+          studentId={auth.user.id}
+          examRunId={examRunId}
+        />
+      )
+    );
 
     return (
       <div>
