@@ -2,10 +2,8 @@ import {
   ADD_EXAM,
   GET_EXAMS,
   GET_EXAM,
-  GET_ERRORS,
   EXAM_LOADING,
   DELETE_EXAM
-  //CLEAR_ERRORS,
 } from "../actions/types";
 
 const initialState = {

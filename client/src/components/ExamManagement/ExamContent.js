@@ -123,8 +123,8 @@ class ExamContent extends Component {
 
             <Link
               to={{
-                pathname: `/resultview`,
-                examId: `${examRunId}`
+                pathname: `/resultitem`,
+                examRunId: `${examRunId}`
               }}
               className={
                 "btn btn-outline-primary "

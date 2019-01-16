@@ -6,13 +6,13 @@ import {
   GET_EXAM,
   EXAM_LOADING,
   DELETE_EXAM,
-  GET_ERRORS
-  //CLEAR_ERRORS,
+  GET_ERRORS,
+  CLEAR_ERRORS
 } from "./types";
 
 // Add Exam
 export const buildExam = newExam => dispatch => {
-  // dispatch(clearErrors());
+  dispatch(clearErrors());
   axios
     .post("/api/exams", newExam)
     .then(res =>
@@ -98,8 +98,8 @@ export const setExamLoading = () => {
 };
 
 // Clear errors
-// export const clearErrors = () => {
-//   return {
-//     type: CLEAR_ERRORS
-//   };
-// };
+export const clearErrors = () => {
+  return {
+    type: CLEAR_ERRORS
+  };
+};

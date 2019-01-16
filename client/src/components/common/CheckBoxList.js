@@ -12,6 +12,7 @@ import IconButton from "@material-ui/core/IconButton";
 import CommentIcon from "@material-ui/icons/Comment";
 import TextAreaFieldGroup from "./TextAreaFieldGroup";
 import RadioButtonsGroup from "./RadioButtonsGroup";
+import AnswerTextField from "./AnswerTextField";
 
 const styles = theme => ({
   root: {

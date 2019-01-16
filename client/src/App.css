@@ -61,3 +61,7 @@ img {
 .disabled-link {
   pointer-events: none;
 }
+
+.likeicon {
+  color: "red";
+}

@@ -17,6 +17,18 @@ class ExamItem extends Component {
         <p>Exam ID:{this.props.exam._id}</p>
         <p>Exam Title: {this.props.exam.examName}</p>
         <p>Exam Instructor: {this.props.exam.examOwner}</p>
+        <p>
+          Start Time:{" "}
+          <Moment format="DD MMM YYYY (HH:mm)">
+            {this.props.exam.startTime}
+          </Moment>
+        </p>
+        <p>
+          Finish Time:{" "}
+          <Moment format="DD MMM YYYY (HH:mm)">
+            {this.props.exam.finishTime}
+          </Moment>
+        </p>
 
         {/* <ol>
           {this.props.quiz.sQuestions.map(question => (

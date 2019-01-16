@@ -12,8 +12,8 @@ class ExamsView extends Component {
   }
 
   render() {
-    console.log("this.props.exam:", this.props.exams);
     const { exams, loading } = this.props.exam;
+    console.log("this.props.exam.exams:", exams);
     let examContent;
 
     if (exams === null || loading) {

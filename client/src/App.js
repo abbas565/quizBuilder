@@ -34,7 +34,10 @@ import ExamGen from "./components/ExamManagement/ExamGen";
 import ExamsView from "./components/ExamManagement/ExamsView";
 import ExamView from "./components/ExamManagement/ExamView";
 import ExamRun from "./components/ExamManagement/ExamRun";
+
+import ResultsView from "./components/ExamManagement/ResultsView";
 import ResultView from "./components/ExamManagement/ResultView";
+import ResultItem from "./components/ExamManagement/ResultItem";
 
 import Posts from "./components/posts/Posts";
 import Post from "./components/post/Post";
@@ -145,7 +148,21 @@ class App extends Component {
                 <PrivateRoute exact path="/posts/exams/:id" component={Posts} />
               </Switch>
               <Switch>
-                <PrivateRoute exact path="/resultview" component={ResultView} />
+                <PrivateRoute
+                  exact
+                  path="/resultsview"
+                  component={ResultsView}
+                />
+              </Switch>
+              {/* <Switch>
+                <PrivateRoute
+                  exact
+                  path="/results/:id"
+                  component={ResultView}
+                />
+              </Switch> */}
+              <Switch>
+                <PrivateRoute exact path="/resultitem" component={ResultItem} />
               </Switch>
 
               <Route exact path="/not-found" component={NotFound} />

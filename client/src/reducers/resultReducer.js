@@ -1,20 +1,19 @@
 import {
   ADD_RESULT,
-  // GET_EXAMS,
-  // GET_EXAM,
   ADD_EXAM_RESULT,
-  GET_ERRORS,
-  RESULT_LOADING,
-  GET_EXAM_RESULT
+  GET_EXAMS_RESULTS,
+  GET_EXAM_RESULT,
+  RESULT_LOADING
+  // GET_ERRORS,
   // DELETE_RESULT,
   //CLEAR_ERRORS,
 } from "../actions/types";
 
 const initialState = {
   results: [],
-  examresults: [],
-  examresult: {},
   result: {},
+  examsresults: [],
+  examresult: {},
   loading: false
 };
 
@@ -34,14 +33,14 @@ export default function(state = initialState, action) {
     case ADD_EXAM_RESULT:
       return {
         ...state,
-        examresults: [action.payload, ...state.examresults]
+        examsresults: [action.payload, ...state.examsresults]
       };
-    //   case GET_EXAMS:
-    //     return {
-    //       ...state,
-    //       exams: action.payload,
-    //       loading: false
-    //     };
+    case GET_EXAMS_RESULTS:
+      return {
+        ...state,
+        examsresults: action.payload,
+        loading: false
+      };
     case GET_EXAM_RESULT:
       return {
         ...state,

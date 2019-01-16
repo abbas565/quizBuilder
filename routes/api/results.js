@@ -77,14 +77,11 @@ router.post(
       examId: req.body.examId,
       examRunId: req.body.examRunId
     })
-      // .sort({ date: -1 })
       .sort({ questionId: -1 })
       .then(results => {
         //-----remove old saved answerd in each exam start-------
-        // console.log("Line 82-results.length is:", results);
         const removeitems = [];
         for (let i = 0; i < results.length - 1; i++) {
-          // console.log("questionId is:", results[i].questionId);
           if (results[i].questionId == results[i + 1].questionId) {
             if (results[i].date > results[i + 1].date) {
               removeitems.push(results[i + 1]);
@@ -295,7 +292,7 @@ router.get(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Profile.findOne({ user: req.user.id }).then(profile => {
-      ExamResult.find({ examId: req.params.id })
+      ExamResult.find({ examRunId: req.params.id })
         .then(examresult => {
           // Check for exam owner
           // if (
@@ -320,6 +317,32 @@ router.get(
     });
   }
 );
+
+// @route   GET api/results
+// @desc    Get results by user
+// @access  Private
+router.get(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    console.log("Results view works....!"),
+      Profile.findOne({ user: req.user.id }).then(profile => {
+        ExamResult.find()
+          .sort({ date: -1 })
+          .then(examsresults => {
+            // Show exam
+            res.json(examsresults);
+            console.log("exams are in api:", examsresults);
+          })
+          .catch(err =>
+            res
+              .status(404)
+              .json({ noexamsresultsfound: "No exams results found" })
+          );
+      });
+  }
+);
+//--------------------
 
 module.exports = router;
 

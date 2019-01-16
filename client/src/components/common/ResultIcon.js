@@ -1,6 +1,12 @@
 import React from "react";
 import classnames from "classnames";
-// import Checkbox from "@material-ui/core/Checkbox";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faThumbsDown,
+  faThumbsUp,
+  faCheck,
+  faTimesCircle
+} from "@fortawesome/free-solid-svg-icons";
 
 class ResultIcon extends React.Component {
   render() {
@@ -8,73 +14,33 @@ class ResultIcon extends React.Component {
       <div>
         {this.props.resultpoint == -1 ? (
           <div>
-            <i
-              className={classnames("fas fa-thumbs-down", {
-                "text-info": "Correct Answer" //this.findUserLike(post.likes)
-              })}
-            />
-            <i
-              className={classnames("fas fa-thumbs-up", {
-                "text-info": "Correct Answer" //this.findUserLike(post.likes)
-              })}
-            />
+            <FontAwesomeIcon icon={faThumbsDown} color={"red"} />
+            <FontAwesomeIcon icon={faThumbsUp} color={"green"} />
+            <FontAwesomeIcon icon={faCheck} color={"green"} />
+            <FontAwesomeIcon icon={faTimesCircle} color={"green"} />
           </div>
         ) : this.props.resultpoint == 0 ? (
           <div>
-            <i
-              className={classnames("fas fa-thumbs-down", {
-                "text-info": "Correct Answer" //this.findUserLike(post.likes)
-              })}
-            />
-            <i
-              className={classnames("fas fa-thumbs-down", {
-                "text-info": "Correct Answer" //this.findUserLike(post.likes)
-              })}
-            />
+            <FontAwesomeIcon icon={faThumbsDown} color={"red"} />
+            <FontAwesomeIcon icon={faThumbsDown} color={"red"} />
+            <FontAwesomeIcon icon={faCheck} color={"red"} />
+            <FontAwesomeIcon icon={faTimesCircle} color={"red"} />
           </div>
         ) : this.props.resultpoint == 1 ? (
           <div>
-            <i
-              className={classnames("fas fa-thumbs-up", {
-                "text-info": "Correct Answer" //this.findUserLike(post.likes)
-              })}
-            />
-            <i
-              className={classnames("fas fa-thumbs-up", {
-                "text-info": "Correct Answer" //this.findUserLike(post.likes)
-              })}
-            />
+            <FontAwesomeIcon icon={faThumbsUp} color={"green"} />
+            <FontAwesomeIcon icon={faThumbsUp} color={"green"} />
+            <FontAwesomeIcon icon={faCheck} color={"green"} />
+            <FontAwesomeIcon icon={faTimesCircle} color={"green"} />
           </div>
         ) : (
           <div>
-            <i
-              className={classnames("fas fa-thumbs-up", {
-                "text-info": "Correct Answer" //this.findUserLike(post.likes)
-              })}
-            />
-            <i
-              className={classnames("fas far fa-angry", {
-                "text-info": "Correct Answer" //this.findUserLike(post.likes)
-              })}
-            />
+            <FontAwesomeIcon icon={faThumbsUp} color={"green"} />
+            <FontAwesomeIcon icon={faThumbsDown} color={"red"} />
+            <FontAwesomeIcon icon={faCheck} color={"red"} />
+            <FontAwesomeIcon icon={faTimesCircle} color={"red"} />
           </div>
         )}
-        {/* <Checkbox checked color="primary" value="checkedE" /> */}
-        {/* <i
-          className={classnames("fas fa-thumbs-up", {
-            "text-info": "Correct Answer" //this.findUserLike(post.likes)
-          })}
-        />
-        <i
-          className={classnames("far fa-angry", {
-            "text-info": "Correct Answer" //this.findUserLike(post.likes)
-          })}
-        /> */}
-        {/* <Checkboxes /> */}
-        {/* <Checkbox checked color="green" value="checkedE" />
-        <Checkbox checked color={green} value="checkedE" /> */}
-        {/* <Checkbox disabled checked value="checkedE" /> */}
-        {/* <Checkbox checked color="primary" value="checkedE" /> */}
       </div>
     );
   }
