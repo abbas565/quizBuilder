@@ -2,7 +2,7 @@
 
     This is a sample RESTful app for collecting data
 
-ducks-data-app is React and Node.js Web Apps.
+quizBuilder is a MERN application.
 
 # Built with:
 
@@ -10,7 +10,8 @@ Node.js,
 React,
 Redux,
 Express,
-MongoDB(mLab)
+MongoDB(mLab),
+Material-UI
 
 # Prerequisites
 
@@ -18,8 +19,8 @@ Node.js >= 10
 
 # Installation
 
-1. git clone git@github.com:abbas565/ducks-data-app.git
-2. cd ducks-data-app
+1. git clone git@github.com:abbas565/quizBuilder.git
+2. cd quizBuilder
 3. npm install
 4. npm run client-install
 5. Run Application with npm run dev
