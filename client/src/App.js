@@ -164,6 +164,9 @@ class App extends Component {
               <Switch>
                 <PrivateRoute exact path="/resultitem" component={ResultItem} />
               </Switch>
+              <Switch>
+                <PrivateRoute exact path="/resultview" component={ResultView} />
+              </Switch>
 
               <Route exact path="/not-found" component={NotFound} />
             </div>

@@ -104,10 +104,6 @@ router.post(
         //----finding correct answers start--------
         Exam.findById(req.body.examId)
           .then(exam => {
-            // console.log(
-            //   "Line 108-exam.qExam.sQuestions is:",
-            //   exam.qExam.sQuestions
-            // );
             exam.qExam.sQuestions.forEach(que => {
               newresults.forEach(result => {
                 if (que._id == result.questionId) {
@@ -115,6 +111,7 @@ router.post(
                   // if answer is correct pass is 1
                   // if answer is incorrect pass is -1
                   // if answer didn't selected correct pass is 0
+                  // if answer is correct but don't selected is 2
                   //-------Points pass algorithem finished ---
 
                   //-----choose answer01------
@@ -291,8 +288,10 @@ router.get(
   "/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
+    console.log("req in get:results/:id is:", req);
     Profile.findOne({ user: req.user.id }).then(profile => {
       ExamResult.find({ examRunId: req.params.id })
+        .sort({ date: -1 })
         .then(examresult => {
           // Check for exam owner
           // if (

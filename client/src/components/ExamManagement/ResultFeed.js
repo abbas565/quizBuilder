@@ -27,10 +27,11 @@ import isEmpty from "../../validation/is-empty";
 import Moment from "react-moment";
 
 let counter = 0;
-function createData(examId, examRunId, studentId, examsresult) {
+function createData(examresultId, examId, examRunId, studentId, examsresult) {
   counter += 1;
   return {
     id: counter,
+    examresultId,
     examId,
     examRunId,
     studentId,
@@ -72,16 +73,16 @@ const rows = [
     label: "Exam ID"
   },
   {
-    id: "studentId",
-    numeric: false,
-    disablePadding: false,
-    label: "Student ID"
-  },
-  {
     id: "examRunId",
     numeric: false,
     disablePadding: false,
     label: "Exam Run ID"
+  },
+  {
+    id: "studentId",
+    numeric: false,
+    disablePadding: false,
+    label: "Student ID"
   }
 ];
 
@@ -456,12 +457,15 @@ class ResultFeed extends React.Component {
                       <TableCell component="th" scope="row" padding="none">
                         {n.examRunId}
                       </TableCell>
-                      <TableCell>{n.studentId}</TableCell>
+                      <TableCell component="th" scope="row" padding="none">
+                        {n.studentId}
+                      </TableCell>
 
                       <TableCell>
                         <Link
                           to={{
-                            pathname: `/resultitem`,
+                            // pathname: `/resultitem`,
+                            pathname: `/resultview`,
                             examRunId: `${n.examRunId}`,
                             examId: `${n.examId}`
                           }}

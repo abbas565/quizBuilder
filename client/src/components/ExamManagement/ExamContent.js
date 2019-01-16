@@ -38,17 +38,6 @@ class ExamContent extends Component {
     // console.log("sQuestions are:", this.state.sQuestions);
     console.log("newExamId in ExamContent:", newExamId);
     this.props.buildExamResult(newExamId);
-    // this.props.getExamResult(examRunId);
-
-    // this.setState({
-    //   quizName: "",
-    //   selected: [],
-    //   selectedQueId: [],
-    //   sQuestions: [],
-    //   quizOwner: ""
-    // });
-
-    // this.forceUpdate();
   };
 
   render() {
@@ -123,8 +112,9 @@ class ExamContent extends Component {
 
             <Link
               to={{
-                pathname: `/resultitem`,
-                examRunId: `${examRunId}`
+                pathname: `/resultview`,
+                examRunId: `${examRunId}`,
+                examId: `${selectedExam._id}`
               }}
               className={
                 "btn btn-outline-primary "
