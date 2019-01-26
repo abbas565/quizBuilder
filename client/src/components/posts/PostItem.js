@@ -39,6 +39,7 @@ class PostItem extends Component {
     const { post, auth, showActions } = this.props;
     const { exam } = this.props.exam;
     console.log("Line 41-exam is:", exam);
+    console.log("Line 42-post is:", post);
 
     return (
       <div className="card card-body mb-3">

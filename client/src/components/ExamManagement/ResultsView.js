@@ -8,7 +8,6 @@ import { getExamsResults } from "../../actions/resultActions";
 class ResultsView extends Component {
   componentDidMount() {
     this.props.getExamsResults();
-    // this.props.getStuExams(this.props.match.params.id);
   }
 
   render() {
@@ -18,7 +17,7 @@ class ResultsView extends Component {
     //-----------------------------------------------------------
 
     const removeItems = [];
-    const remainItems = examsresults;
+    const remainItems = examsresults; //????????
 
     for (let i = 0; i < examsresults.length - 1; i++) {
       if (

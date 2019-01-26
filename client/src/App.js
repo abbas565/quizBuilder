@@ -41,6 +41,7 @@ import ResultItem from "./components/ExamManagement/ResultItem";
 
 import Posts from "./components/posts/Posts";
 import Post from "./components/post/Post";
+import PostsView from "./components/posts/PostsView";
 
 import "./App.css";
 import ExamBuilder from "./components/ExamManagement/ExamBuilder";
@@ -139,7 +140,13 @@ class App extends Component {
                 <PrivateRoute exact path="/examrun" component={ExamRun} />
               </Switch>
               <Switch>
-                <PrivateRoute exact path="/feed" component={Posts} />
+                <PrivateRoute exact path="/postfeed" component={Posts} />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/postview" component={Posts} />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/postsview" component={PostsView} />
               </Switch>
               <Switch>
                 <PrivateRoute exact path="/post/:id" component={Post} />

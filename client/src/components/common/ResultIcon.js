@@ -14,31 +14,34 @@ class ResultIcon extends React.Component {
       <div>
         {this.props.resultpoint == -1 ? (
           <div>
+            <FontAwesomeIcon icon={faThumbsUp} color={"white"} />
             <FontAwesomeIcon icon={faThumbsDown} color={"red"} />
-            <FontAwesomeIcon icon={faThumbsUp} color={"green"} />
+            {/* <FontAwesomeIcon icon={faThumbsUp} color={"green"} />
             <FontAwesomeIcon icon={faCheck} color={"green"} />
-            <FontAwesomeIcon icon={faTimesCircle} color={"green"} />
+            <FontAwesomeIcon icon={faTimesCircle} color={"green"} /> */}
           </div>
         ) : this.props.resultpoint == 0 ? (
           <div>
-            <FontAwesomeIcon icon={faThumbsDown} color={"red"} />
-            <FontAwesomeIcon icon={faThumbsDown} color={"red"} />
+            <FontAwesomeIcon icon={faThumbsDown} color={"white"} />
+            <FontAwesomeIcon icon={faThumbsDown} color={"white"} />
+            {/* <FontAwesomeIcon icon={faThumbsDown} color={"red"} />
             <FontAwesomeIcon icon={faCheck} color={"red"} />
-            <FontAwesomeIcon icon={faTimesCircle} color={"red"} />
+            <FontAwesomeIcon icon={faTimesCircle} color={"red"} /> */}
           </div>
         ) : this.props.resultpoint == 1 ? (
           <div>
             <FontAwesomeIcon icon={faThumbsUp} color={"green"} />
             <FontAwesomeIcon icon={faThumbsUp} color={"green"} />
-            <FontAwesomeIcon icon={faCheck} color={"green"} />
-            <FontAwesomeIcon icon={faTimesCircle} color={"green"} />
+            {/* <FontAwesomeIcon icon={faCheck} color={"green"} />
+            <FontAwesomeIcon icon={faTimesCircle} color={"green"} /> */}
           </div>
         ) : (
           <div>
             <FontAwesomeIcon icon={faThumbsUp} color={"green"} />
             <FontAwesomeIcon icon={faThumbsDown} color={"red"} />
+            {/* <FontAwesomeIcon icon={faThumbsDown} color={"red"} />
             <FontAwesomeIcon icon={faCheck} color={"red"} />
-            <FontAwesomeIcon icon={faTimesCircle} color={"red"} />
+            <FontAwesomeIcon icon={faTimesCircle} color={"red"} /> */}
           </div>
         )}
       </div>

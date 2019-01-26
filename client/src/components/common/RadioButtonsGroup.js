@@ -9,6 +9,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import { buildQuestionResult } from "../../actions/resultActions";
+import SaveButton from "./SaveButton";
 
 const styles = theme => ({
   root: {
@@ -108,9 +109,10 @@ class RadioButtonsGroup extends React.Component {
                 label={this.props.items[3]}
               />
             </RadioGroup>
-            <button className="btn btn-primary" type="submit">
+            {/* <button className="btn btn-primary" type="submit">
               Save Answer
-            </button>
+            </button> */}
+            <SaveButton />
           </FormControl>
         </form>
       </div>

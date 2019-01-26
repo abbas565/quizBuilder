@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import PostForm from "./PostForm";
 import PostFeed from "./PostFeed";
 import Spinner from "../common/Spinner";
-import { getPostsExamId } from "../../actions/postActions";
+import { getPosts, getPostsExamId } from "../../actions/postActions";
 
 class Posts extends Component {
   componentDidMount() {
@@ -14,12 +14,14 @@ class Posts extends Component {
     this.props.location.examId
       ? this.props.getPostsExamId(this.props.location.examId)
       : this.props.getPostsExamId(this.props.post.posts[0].examId);
+    // this.props.getPosts();
   }
 
   render() {
     const { posts, loading } = this.props.post;
     console.log("Line 17-posts props are:", this.props);
     console.log("Line 18-Exam ID is:", this.props.location.examId);
+    console.log("Line 18-selectedExam is:", this.props.location.selectedExam);
     let postContent;
 
     if (posts === null || loading) {
@@ -36,7 +38,10 @@ class Posts extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-12">
-              <PostForm examId={this.props.location.examId} />
+              <PostForm
+                examId={this.props.location.examId}
+                selectedExam={this.props.location.selectedExam}
+              />
               {postContent}
             </div>
           </div>
@@ -48,6 +53,7 @@ class Posts extends Component {
 
 Posts.propTypes = {
   getPostsExamId: PropTypes.func.isRequired,
+  getPosts: PropTypes.func.isRequired,
   post: PropTypes.object.isRequired
 };
 
@@ -57,5 +63,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getPostsExamId }
+  { getPostsExamId, getPosts }
 )(Posts);

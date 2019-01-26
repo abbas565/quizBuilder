@@ -13,6 +13,7 @@ import CommentIcon from "@material-ui/icons/Comment";
 import TextAreaFieldGroup from "./TextAreaFieldGroup";
 import RadioButtonsGroup from "./RadioButtonsGroup";
 import AnswerTextField from "./AnswerTextField";
+import SaveButton from "./SaveButton";
 
 const styles = theme => ({
   root: {
@@ -104,6 +105,27 @@ class CheckboxList extends React.Component {
         <form onSubmit={this.handleFormSubmit}>
           <h2>{title}</h2>
 
+          {/* items.map(value => (
+          <ListItem
+            key={value}
+            role={undefined}
+            dense
+            button
+            onClick={this.handleToggle(value)}
+          >
+            <Checkbox
+              checked={this.state.checked.indexOf(value) !== -1}
+              tabIndex={-1}
+              disableRipple
+            />
+            <ListItemText primary={`Answer: ${value}`} />
+            <ListItemSecondaryAction>
+              <IconButton aria-label="Comments">
+                <CommentIcon />
+              </IconButton>
+            </ListItemSecondaryAction>
+          </ListItem>
+          )) */}
           {questionType == 1 ? (
             items.map(value => (
               <ListItem
@@ -127,72 +149,19 @@ class CheckboxList extends React.Component {
               </ListItem>
             ))
           ) : (
-            // questionType == 2 ? (
-            // <RadioButtonsGroup items={items} title={title} />
-            // items.map(value => (
-            //   <ListItem
-            //     key={value}
-            //     role={undefined}
-            //     dense
-            //     button
-            //     onClick={this.handleToggle(value)}
-            //   >
-            //     <Checkbox
-            //       checked={this.state.checked.indexOf(value) !== -1}
-            //       tabIndex={-1}
-            //       disableRipple
-            //     />
-            //     <ListItemText primary={`Answer: ${value}`} />
-            //     <ListItemSecondaryAction>
-            //       <IconButton aria-label="Comments">
-            //         <CommentIcon />
-            //       </IconButton>
-            //     </ListItemSecondaryAction>
-            //   </ListItem>
-            // ))
-            // ) :
             <TextAreaFieldGroup
-              placeholder="* Type your answer here please"
               name="answerDescript"
+              placeholder="* Type your answer here please"
               value={this.state.answerDescript}
-              onChange={this.onChange}
               // error={errors.answerDescript}
               info="The descriptional answer"
+              onChange={this.onChange}
             />
           )}
-
-          {/* {items.map(value => (
-            <ListItem
-              key={value}
-              role={undefined}
-              dense
-              button
-              onClick={this.handleToggle(value)}
-            >
-              <Checkbox
-                checked={this.state.checked.indexOf(value) !== -1}
-                tabIndex={-1}
-                disableRipple
-              />
-              <ListItemText primary={`Answer: ${value}`} />
-              <ListItemSecondaryAction>
-                <IconButton aria-label="Comments">
-                  <CommentIcon />
-                </IconButton>
-              </ListItemSecondaryAction>
-            </ListItem>
-          ))} */}
-          {/* <TextAreaFieldGroup
-            placeholder="* Type your answer here please"
-            name="answerDescript"
-            value={this.state.answerDescript}
-            onChange={this.onChange}
-            // error={errors.answerDescript}
-            info="The descriptional answer"
-          /> */}
-          <button className="btn btn-primary" type="submit">
+          {/* <button className="btn btn-primary" type="submit">
             Save Answer
-          </button>
+          </button> */}
+          <SaveButton />
           {/* <button className="btn btn-outline-warning" type="submit">
             Send Comment
           </button> */}

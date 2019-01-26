@@ -8,6 +8,7 @@ import isEmpty from "./../../validation/is-empty";
 import QuestionView from "../question/QuestionView";
 import CheckBoxList from "../common/CheckBoxList";
 import RadioButtonsGroup from "../common/RadioButtonsGroup";
+import AnswerTextField from "../common/AnswerTextField";
 
 class ExamContent extends Component {
   constructor(props) {
@@ -73,8 +74,24 @@ class ExamContent extends Component {
           studentId={auth.user.id}
           examRunId={examRunId}
         />
-      ) : (
+      ) : sQ.questionType == 1 ? (
         <CheckBoxList
+          items={[
+            sQ.answers.answer01.ansText,
+            sQ.answers.answer02.ansText,
+            sQ.answers.answer03.ansText,
+            sQ.answers.answer04.ansText
+          ]}
+          title={sQ.mainText}
+          key={sQ._id}
+          questionId={sQ._id}
+          questionType={sQ.questionType}
+          examId={selectedExam._id}
+          studentId={auth.user.id}
+          examRunId={examRunId}
+        />
+      ) : (
+        <AnswerTextField
           items={[
             sQ.answers.answer01.ansText,
             sQ.answers.answer02.ansText,
@@ -102,8 +119,10 @@ class ExamContent extends Component {
             </button>
             <Link
               to={{
-                pathname: `/feed`,
-                examId: `${selectedExam._id}`
+                pathname: `/postfeed`,
+                examId: `${selectedExam._id}`,
+                examRunId: `${examRunId}`,
+                selectedExam: `${selectedExam}`
               }}
               className="btn btn btn-outline-warning"
             >

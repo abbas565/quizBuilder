@@ -93,18 +93,15 @@ class ResultItem extends Component {
           <p>Exam Run ID is: {this.props.examresult.examRunId}</p>
 
           {resultItemContent}
-          {/* <button className="btn btn-success" type="submit">
-              Submit Exam
-            </button>
-            <Link
-              to={{
-                pathname: `/feed`,
-                examId: `${selectedExam._id}`
-              }}
-              className="btn btn btn-outline-warning"
-            >
-              Send Comment
-            </Link> */}
+          <Link
+            to={{
+              pathname: `/postfeed`,
+              examId: `${this.props.examresult.examId}`
+            }}
+            className="btn btn btn-outline-warning"
+          >
+            Send Comment
+          </Link>
           <h1>ResultItem worked!!!!</h1>
         </div>
       </div>

@@ -6,6 +6,8 @@ import { withStyles } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import { buildQuestionResult } from "../../actions/resultActions";
+import UpLoadButton from "./UpLoadButton";
+import SaveButton from "./SaveButton";
 
 const styles = theme => ({
   container: {
@@ -76,30 +78,38 @@ class AnswerTextField extends React.Component {
 
   render() {
     const { classes } = this.props;
+    const { items, title, questionType } = this.props;
 
     return (
-      <form
-        onSubmit={this.handleFormSubmit}
-        className={classes.container}
-        noValidate
-        autoComplete="off"
-      >
-        <TextField
-          id="outlined-textarea"
-          label="Answer"
-          placeholder="Placeholder"
-          multiline
-          className={classes.textField}
-          value={this.state.answer}
-          onChange={this.handleChange("answer")}
-          margin="normal"
-          variant="outlined"
-          style={{ margin: 8 }}
-        />
-        <button className="btn btn-primary" type="submit">
-          Save Answer
-        </button>
-      </form>
+      <div className={classes.root}>
+        <form
+          onSubmit={this.handleFormSubmit}
+          className={classes.container}
+          noValidate
+          autoComplete="off"
+        >
+          <h2>{title}</h2>
+          <TextField
+            id="outlined-textarea"
+            label="Answer"
+            placeholder="Placeholder"
+            multiline
+            className={classes.textField}
+            value={this.state.answer}
+            onChange={this.handleChange("answer")}
+            margin="normal"
+            variant="outlined"
+            style={{ margin: 8 }}
+            fullWidth
+          />
+          {/* <button className="btn btn-primary" type="submit">
+            Save Answer
+          </button> */}
+
+          <SaveButton />
+          <UpLoadButton />
+        </form>
+      </div>
     );
   }
 }

@@ -53,7 +53,7 @@ const PostSchema = new Schema({
   ],
   examId: {
     type: String,
-    required: true
+    required: false
   },
   date: {
     type: Date,
