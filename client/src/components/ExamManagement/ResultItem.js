@@ -100,7 +100,7 @@ class ResultItem extends Component {
             }}
             className="btn btn btn-outline-warning"
           >
-            Send Comment
+            Create a Post
           </Link>
           <h1>ResultItem worked!!!!</h1>
         </div>

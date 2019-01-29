@@ -62,9 +62,26 @@ class Dashboard extends Component {
       <div className="dashboard">
         <div className="container">
           <div className="row">
-            <div className="col-md-12">
+            <div className="col-sm-4">
               <h1 className="display-4">Dashboard</h1>
               {dashboardContent}
+            </div>
+            <div className="col-sm-4">
+              <h1 className="display-4">Vectors</h1>
+            </div>
+            <div className="col-sm-4">
+              <h1 className="display-4">Mechanics</h1>
+              <Link to="/one-dim-mot" className="display-6">
+                One-Dimensional Motion
+              </Link>
+              <br />
+              <Link to="/two-dim-mot" className="display-6 disabled-link">
+                Two-Dimensional Motion
+              </Link>
+              <br />
+              <Link to="/dynamics" className="display-6 disabled-link">
+                Dynamics
+              </Link>
             </div>
           </div>
         </div>

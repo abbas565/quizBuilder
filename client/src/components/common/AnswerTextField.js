@@ -8,6 +8,7 @@ import TextField from "@material-ui/core/TextField";
 import { buildQuestionResult } from "../../actions/resultActions";
 import UpLoadButton from "./UpLoadButton";
 import SaveButton from "./SaveButton";
+import HintButton from "./HintButton";
 
 const styles = theme => ({
   container: {
@@ -108,6 +109,7 @@ class AnswerTextField extends React.Component {
 
           <SaveButton />
           <UpLoadButton />
+          <HintButton />
         </form>
       </div>
     );

@@ -136,7 +136,7 @@ class ExamContent extends Component {
               }}
               className="btn btn btn-outline-warning"
             >
-              Send Comment
+              Create a Post
             </Link>
 
             <Link

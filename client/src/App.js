@@ -43,6 +43,10 @@ import Posts from "./components/posts/Posts";
 import Post from "./components/post/Post";
 import PostsView from "./components/posts/PostsView";
 
+import Dynamics from "./components/physics/Dynamics";
+import OneDimMot from "./components/physics/OneDimMot";
+import TwoDimMot from "./components/physics/TwoDimMot";
+
 import "./App.css";
 import ExamBuilder from "./components/ExamManagement/ExamBuilder";
 
@@ -173,6 +177,16 @@ class App extends Component {
               </Switch>
               <Switch>
                 <PrivateRoute exact path="/resultview" component={ResultView} />
+              </Switch>
+
+              <Switch>
+                <PrivateRoute exact path="/one-dim-mot" component={OneDimMot} />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/two-dim-mot" component={TwoDimMot} />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/dynamics" component={Dynamics} />
               </Switch>
 
               <Route exact path="/not-found" component={NotFound} />
