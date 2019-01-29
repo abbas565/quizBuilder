@@ -39,6 +39,8 @@ class ExamContent extends Component {
     // console.log("sQuestions are:", this.state.sQuestions);
     console.log("newExamId in ExamContent:", newExamId);
     this.props.buildExamResult(newExamId);
+
+    // this.examform.className.attr("disabled-link", true); // = "btn btn-outline-success disabled-link";
   };
 
   render() {
@@ -112,9 +114,17 @@ class ExamContent extends Component {
     return (
       <div>
         <div>
-          <form onSubmit={this.handleFormSubmit}>
+          <form onSubmit={this.handleFormSubmit} id="examform">
             {examContent}
-            <button className="btn btn-success" type="submit">
+            <button
+              className="btn btn-success"
+              // className={
+              //   this.examform.submitted
+              //     ? "btn btn-outline-success disabled-link"
+              //     : "btn btn-outline-success"
+              // }
+              type="submit"
+            >
               Submit Exam
             </button>
             <Link
